@@ -3,8 +3,6 @@
     "name": "news-paper",
     "slug": "news-paper",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"]
   }
 }
