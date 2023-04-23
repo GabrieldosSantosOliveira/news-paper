@@ -1,4 +1,4 @@
-package com.newspaper;
+package com.gabriel85.newspaper;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.newspaper;
+package com.gabriel85.newspaper;
 
 import android.app.Application;
 import android.content.res.Configuration;
