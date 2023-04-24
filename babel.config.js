@@ -1,15 +1,17 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo'],
+    presets: ['babel-preset-expo', 'module:react-native-dotenv'],
     plugins: [
       [
         'module-resolver',
         {
           alias: {
             '@/components': './src/components',
+            '@/config': './src/config',
             '@/contexts': './src/contexts',
             '@/errors': './src/errors',
+            '@/factories': './src/factories',
             '@/hooks': './src/hooks',
             '@/interfaces': './src/interfaces',
             '@/routes': './src/routes',

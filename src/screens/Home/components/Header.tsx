@@ -6,10 +6,10 @@ export interface HeaderProps {
   height: number;
   opacity: number;
 }
+const BoxEmpty = () => <View style={{ width: 5, height: 5 }} />;
 export const Header: FC<HeaderProps> = ({ height, opacity }) => {
   const { theme } = useTheme();
   const { fontSize, fonts } = theme;
-  const BoxEmpty = () => <View style={{ width: 5, height: 5 }} />;
   return (
     <View
       style={{
