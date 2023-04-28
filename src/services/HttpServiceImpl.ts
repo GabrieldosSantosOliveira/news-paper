@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { UnexpectedError } from '@/errors/UnexpectedError';
 import {
   HttpService,
   HttpServiceOptions,
@@ -16,100 +17,120 @@ export class HttpServiceImpl implements HttpService {
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
-    const res = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(options?.body),
-      headers: {
-        'Content-Type': options?.headers?.contentType || 'application/json',
-      },
-    });
-    const data = res.json() as T;
-    if (res.status >= 400) {
-      return this.interceptors.response.onRejected({
-        data,
-        statusCode: res.status,
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        body: JSON.stringify(options?.body),
+        headers: {
+          'Content-Type': options?.headers?.contentType || 'application/json',
+        },
       });
+      const data = (await res.json()) as T;
+      if (res.status >= 400) {
+        return await this.interceptors.response.onRejected({
+          data,
+          statusCode: res.status,
+        });
+      }
+      return { data, statusCode: res.status };
+    } catch {
+      throw new UnexpectedError();
     }
-    return { data, statusCode: res.status };
   }
   async post<T = any>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
-    const res = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(options?.body),
-      headers: {
-        'Content-Type': options?.headers?.contentType || 'application/json',
-      },
-    });
-    const data = res.json() as T;
-    if (res.status >= 400) {
-      return this.interceptors.response.onRejected({
-        data,
-        statusCode: res.status,
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(options?.body),
+        headers: {
+          'Content-Type': options?.headers?.contentType || 'application/json',
+        },
       });
+      const data = (await res.json()) as T;
+      if (res.status >= 400) {
+        return await this.interceptors.response.onRejected({
+          data,
+          statusCode: res.status,
+        });
+      }
+      return { data, statusCode: res.status };
+    } catch {
+      throw new UnexpectedError();
     }
-    return { data, statusCode: res.status };
   }
   async put<T = any>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
-    const res = await fetch(url, {
-      method: 'PUT',
-      body: JSON.stringify(options?.body),
-      headers: {
-        'Content-Type': options?.headers?.contentType || 'application/json',
-      },
-    });
-    const data = res.json() as T;
-    if (res.status >= 400) {
-      return this.interceptors.response.onRejected({
-        data,
-        statusCode: res.status,
+    try {
+      const res = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(options?.body),
+        headers: {
+          'Content-Type': options?.headers?.contentType || 'application/json',
+        },
       });
+      const data = (await res.json()) as T;
+      if (res.status >= 400) {
+        return await this.interceptors.response.onRejected({
+          data,
+          statusCode: res.status,
+        });
+      }
+      return { data, statusCode: res.status };
+    } catch {
+      throw new UnexpectedError();
     }
-    return { data, statusCode: res.status };
   }
   async delete<T = any>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
-    const res = await fetch(url, {
-      method: 'DELETE',
-      body: JSON.stringify(options?.body),
-      headers: {
-        'Content-Type': options?.headers?.contentType || 'application/json',
-      },
-    });
-    const data = res.json() as T;
-    if (res.status >= 400) {
-      return this.interceptors.response.onRejected({
-        data,
-        statusCode: res.status,
+    try {
+      const res = await fetch(url, {
+        method: 'DELETE',
+        body: JSON.stringify(options?.body),
+        headers: {
+          'Content-Type': options?.headers?.contentType || 'application/json',
+        },
       });
+      const data = (await res.json()) as T;
+      if (res.status >= 400) {
+        return await this.interceptors.response.onRejected({
+          data,
+          statusCode: res.status,
+        });
+      }
+      return { data, statusCode: res.status };
+    } catch {
+      throw new UnexpectedError();
     }
-    return { data, statusCode: res.status };
   }
   async patch<T = any>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
-    const res = await fetch(url, {
-      method: 'PATCH',
-      body: JSON.stringify(options?.body),
-      headers: {
-        'Content-Type': options?.headers?.contentType || 'application/json',
-      },
-    });
-    const data = res.json() as T;
-    if (res.status >= 400) {
-      return this.interceptors.response.onRejected({
-        data,
-        statusCode: res.status,
+    try {
+      const res = await fetch(url, {
+        method: 'PATCH',
+        body: JSON.stringify(options?.body),
+        headers: {
+          'Content-Type': options?.headers?.contentType || 'application/json',
+        },
       });
+      const data = (await res.json()) as T;
+      if (res.status >= 400) {
+        return await this.interceptors.response.onRejected({
+          data,
+          statusCode: res.status,
+        });
+      }
+      return { data, statusCode: res.status };
+    } catch {
+      throw new UnexpectedError();
     }
-    return { data, statusCode: res.status };
   }
 }
