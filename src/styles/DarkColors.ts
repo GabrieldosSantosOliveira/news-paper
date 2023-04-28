@@ -1,15 +1,15 @@
-export const LightColors = {
-  skeleton: 'rgb(200, 200 ,200)',
+export const DarkColors = {
+  skeleton: 'rgb(70, 70 ,70)',
   progressBar: {
     primary: '#BBF7D0',
   },
   background: {
-    primary: '#FFFFFF',
+    primary: '#09090A',
   },
   text: {
-    primary: '#000000',
-    subTitle: '#444444',
-    secondary: '#52525B',
+    primary: '#FFFFFF',
+    subTitle: '#CCCCCC',
+    secondary: '#CCCCCC',
     help: '#4F46E5',
     attention: '#7C3AED',
     google: '#FFFFFF',
