@@ -1,11 +1,11 @@
 import { useTheme } from '@/hooks';
 import { StatusBar as ReactNativeStatusBar } from 'react-native';
 export const StatusBar = () => {
-  const { themeInUse } = useTheme();
+  const { colorMode } = useTheme();
   return (
     <ReactNativeStatusBar
       backgroundColor="transparent"
-      barStyle={themeInUse === 'light' ? 'dark-content' : 'light-content'}
+      barStyle={colorMode === 'light' ? 'dark-content' : 'light-content'}
       translucent
     />
   );
