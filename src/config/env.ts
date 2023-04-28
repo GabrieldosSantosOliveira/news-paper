@@ -1,5 +1,4 @@
-import reactNativeDotenv from 'react-native-dotenv';
-
 export const env = {
-  BASE_URL: reactNativeDotenv.BASE_URL || 'http://localhost:3000',
+  // @ts-expect-error: does not have correct typing for process.env
+  BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
 };
