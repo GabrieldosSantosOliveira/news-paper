@@ -1,3 +1,5 @@
+import 'react-native-reanimated';
+import 'react-native-gesture-handler';
 import { Loading, StatusBar } from '@/components';
 import {
   HttpServiceProvider,
@@ -14,7 +16,7 @@ import {
 } from '@expo-google-fonts/lexend';
 import { Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default function App() {
   const [isFontsLoaded] = useFonts({
     Lexend_400Regular,
@@ -29,10 +31,10 @@ export default function App() {
     <HttpServiceProvider>
       <StorageProvider>
         <ThemeProvider>
-          <StatusBar />
-          <SafeAreaView style={{ flex: 1 }}>
+          <SafeAreaProvider>
+            <StatusBar />
             {isFontsLoaded ? <Home /> : <Loading />}
-          </SafeAreaView>
+          </SafeAreaProvider>
         </ThemeProvider>
       </StorageProvider>
     </HttpServiceProvider>
