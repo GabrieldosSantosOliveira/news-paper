@@ -1,30 +1,38 @@
+import { BoxEmpty } from '@/components';
 import { useTheme } from '@/hooks';
 import { FontAwesome } from '@expo/vector-icons';
-import { FC } from 'react';
-import { View, Text } from 'react-native';
-export interface HeaderProps {
-  height: number;
-  opacity: number;
-}
-const BoxEmpty = () => <View style={{ width: 5, height: 5 }} />;
-export const Header: FC<HeaderProps> = ({ height, opacity }) => {
-  const { theme } = useTheme();
-  const { fontSize, fonts } = theme;
+import { Text, TouchableOpacity, View } from 'react-native';
+
+export const Header = () => {
+  const {
+    theme: { colors, fontSize, fonts, size },
+  } = useTheme();
   return (
     <View
       style={{
-        height,
-        opacity,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
+        height: size[20],
       }}
     >
       <BoxEmpty />
-      <Text style={{ fontFamily: fonts.Lexend[600], fontSize: fontSize[18] }}>
+      <Text
+        style={{
+          fontFamily: fonts.Lexend[500],
+          fontSize: fontSize[18],
+          color: colors.text.primary,
+        }}
+      >
         News Papper
       </Text>
-      <FontAwesome name="user-circle-o" size={24} color="black" />
+      <TouchableOpacity>
+        <FontAwesome
+          name="user-circle-o"
+          size={24}
+          color={colors.text.primary}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
