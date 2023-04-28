@@ -1,17 +1,19 @@
 import { useTheme } from '@/hooks';
 import { View, ActivityIndicator } from 'react-native';
 export const Loading = () => {
-  const { theme } = useTheme();
+  const {
+    theme: { colors },
+  } = useTheme();
   return (
     <View
       style={{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.colors.background.primary,
+        backgroundColor: colors.background.primary,
       }}
     >
-      <ActivityIndicator size="large" color={theme.colors.text.primary} />
+      <ActivityIndicator size="large" color={colors.text.primary} />
     </View>
   );
 };
