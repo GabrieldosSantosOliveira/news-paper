@@ -28,6 +28,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
+    'react/prop-types': 'off',
     'import-helpers/order-imports': [
       'warn',
       {
