@@ -17,4 +17,9 @@ export const DarkColors = {
   button: {
     google: '#4285F4',
   },
+  input: {
+    border: {
+      primary: '#CCCCCC',
+    },
+  },
 };
