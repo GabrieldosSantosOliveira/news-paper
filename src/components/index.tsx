@@ -4,3 +4,6 @@ export * from './BoxEmpty';
 export * from './SafeAreaView';
 export * from './Skeleton';
 export * from './StatusBar';
+export * from './Heading';
+export * from './Input';
+export * from './Button';
