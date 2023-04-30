@@ -2,11 +2,13 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { Loading, StatusBar } from '@/components';
 import {
+  AuthProvider,
   HttpServiceProvider,
   StorageProvider,
   ThemeProvider,
 } from '@/contexts';
-import { Home } from '@/screens/Home/Home';
+import { ToastProvider } from '@/contexts/ToastContext';
+import { SingUp } from '@/screens/SingUp/SingUp';
 import {
   useFonts,
   Lexend_400Regular,
@@ -32,8 +34,12 @@ export default function App() {
       <StorageProvider>
         <ThemeProvider>
           <SafeAreaProvider>
-            <StatusBar />
-            {isFontsLoaded ? <Home /> : <Loading />}
+            <AuthProvider>
+              <ToastProvider>
+                <StatusBar />
+                {isFontsLoaded ? <SingUp /> : <Loading />}
+              </ToastProvider>
+            </AuthProvider>
           </SafeAreaProvider>
         </ThemeProvider>
       </StorageProvider>

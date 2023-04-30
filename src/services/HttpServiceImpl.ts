@@ -18,12 +18,16 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
+      const headers = new Headers();
+      headers.append(
+        'Content-Type',
+        options?.headers?.contentType || 'application/json',
+      );
+      headers.append('Authorization', options?.headers?.authorization || '');
       const res = await fetch(url, {
         method: 'GET',
         body: JSON.stringify(options?.body),
-        headers: {
-          'Content-Type': options?.headers?.contentType || 'application/json',
-        },
+        headers,
       });
       const data = (await res.json()) as T;
       if (res.status >= 400) {
@@ -42,12 +46,16 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
+      const headers = new Headers();
+      headers.append(
+        'Content-Type',
+        options?.headers?.contentType || 'application/json',
+      );
+      headers.append('Authorization', options?.headers?.authorization || '');
       const res = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(options?.body),
-        headers: {
-          'Content-Type': options?.headers?.contentType || 'application/json',
-        },
+        headers,
       });
       const data = (await res.json()) as T;
       if (res.status >= 400) {
@@ -66,12 +74,16 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
+      const headers = new Headers();
+      headers.append(
+        'Content-Type',
+        options?.headers?.contentType || 'application/json',
+      );
+      headers.append('Authorization', options?.headers?.authorization || '');
       const res = await fetch(url, {
         method: 'PUT',
         body: JSON.stringify(options?.body),
-        headers: {
-          'Content-Type': options?.headers?.contentType || 'application/json',
-        },
+        headers,
       });
       const data = (await res.json()) as T;
       if (res.status >= 400) {
@@ -90,12 +102,17 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
+      const headers = new Headers();
+      headers.append(
+        'Content-Type',
+        options?.headers?.contentType || 'application/json',
+      );
+      headers.append('Authorization', options?.headers?.authorization || '');
+
       const res = await fetch(url, {
         method: 'DELETE',
         body: JSON.stringify(options?.body),
-        headers: {
-          'Content-Type': options?.headers?.contentType || 'application/json',
-        },
+        headers,
       });
       const data = (await res.json()) as T;
       if (res.status >= 400) {
@@ -114,12 +131,16 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
+      const headers = new Headers();
+      headers.append(
+        'Content-Type',
+        options?.headers?.contentType || 'application/json',
+      );
+      headers.append('Authorization', options?.headers?.authorization || '');
       const res = await fetch(url, {
         method: 'PATCH',
         body: JSON.stringify(options?.body),
-        headers: {
-          'Content-Type': options?.headers?.contentType || 'application/json',
-        },
+        headers,
       });
       const data = (await res.json()) as T;
       if (res.status >= 400) {

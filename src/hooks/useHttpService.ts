@@ -1,4 +1,4 @@
-import { HttpServiceContext } from '@/contexts';
+import { HttpServiceContext } from '@/contexts/HttpContext';
 import { WithoutProviderError } from '@/errors';
 import { useContext } from 'react';
 export const useHttpService = () => {

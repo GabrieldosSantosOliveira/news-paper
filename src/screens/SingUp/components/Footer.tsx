@@ -1,16 +1,17 @@
 import { ButtonGoogle } from '@/components';
-import { useTheme } from '@/hooks';
+import { useAuth, useTheme } from '@/hooks';
 import { View, Text, TouchableOpacity } from 'react-native';
 export const Footer = () => {
   const {
     theme: { colors, fontSize, fonts },
   } = useTheme();
+  const { singUpWithGoogleProvider, authorLoading } = useAuth();
+
   return (
     <View style={{ paddingHorizontal: 20, paddingBottom: 40, gap: 20 }}>
       <ButtonGoogle
-        onPress={() => {
-          console.log('Logar com o google');
-        }}
+        onPress={singUpWithGoogleProvider}
+        isLoading={authorLoading}
       />
       <View
         style={{

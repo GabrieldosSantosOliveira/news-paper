@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "246733663821",
+    "project_id": "news-paper-f07d1",
+    "storage_bucket": "news-paper-f07d1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246733663821:android:c3f009ad6ceefd2784b604",
+        "android_client_info": {
+          "package_name": "com.gabriel85.newspaper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246733663821-9e27qsfvqeo1g4ej0veu5htgaurg9d90.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gabriel85.newspaper",
+            "certificate_hash": "c3e6bc5724907f8c5268538f9495bfffd127c0ba"
+          }
+        },
+        {
+          "client_id": "246733663821-t9kal4b2didk37bekp1kvese7q88ekqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiJyzfWFz62Gb7l6_zYi-F_TGHgA0po78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246733663821-t9kal4b2didk37bekp1kvese7q88ekqi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "246733663821-m6o88ph9ronbojm6755kocrqi18m1js2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gabriel85.newspaper"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

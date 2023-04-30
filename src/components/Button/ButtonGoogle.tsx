@@ -36,7 +36,7 @@ export const ButtonGoogle: FC<ButtonGoogleProps> = ({
       onPress={onPress}
     >
       {isLoading ? (
-        <ActivityIndicator size="small" color={colors.text.google} />
+        <ActivityIndicator size="small" color="#040F13" />
       ) : (
         <View
           style={{

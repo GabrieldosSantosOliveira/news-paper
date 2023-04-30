@@ -18,8 +18,31 @@ export const DarkColors = {
     google: '#4285F4',
   },
   input: {
-    border: {
-      primary: '#CCCCCC',
+    primary: {
+      border: '#CCCCCC',
+      icon: '#CCCCCC',
+    },
+  },
+  toast: {
+    error: {
+      background: '#3f3f46',
+      text: '#fff',
+      icon: '#ef4444',
+    },
+    success: {
+      background: '#3f3f46',
+      text: '#fff',
+      icon: '#14532d',
+    },
+    info: {
+      background: '#3f3f46',
+      text: '#fff',
+      icon: '#67e8f9',
+    },
+    default: {
+      background: '#3f3f46',
+      text: '#fff',
+      icon: '#f97316',
     },
   },
 };

@@ -12,6 +12,7 @@ export interface HttpServiceInterceptors {
 }
 export interface HttpServiceOptionsHeaders {
   contentType?: string;
+  authorization?: string;
 }
 export interface HttpServiceOptions {
   body?: any;

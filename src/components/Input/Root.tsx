@@ -16,7 +16,7 @@ const RootBase: FC<RootProps> = ({ children, style, _focus, ...props }) => {
       style={[
         {
           borderWidth: 1,
-          borderColor: colors.input.border.primary,
+          borderColor: colors.input.primary.border,
           borderRadius: 8,
           height: size[20],
           flexDirection: 'row',

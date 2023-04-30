@@ -1,12 +1,7 @@
-import {
-  Button,
-  ControlledInput,
-  Heading,
-  Root,
-  SafeAreaView,
-} from '@/components';
-import { useTheme } from '@/hooks';
+import { Button, ControlledInput, Root, SafeAreaView } from '@/components';
+import { useAuth, useTheme } from '@/hooks';
 import { FontAwesome, Feather } from '@expo/vector-icons';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -15,19 +10,30 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import * as yup from 'yup';
 
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
+import { Heading } from './components/Heading';
 export interface ISingUpForm {
   email: string;
   password: string;
 }
+const schemaSingUpWithEmailAndPassword = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required().min(6),
+});
 export const SingUp = () => {
-  const { control } = useForm<ISingUpForm>();
+  const { control } = useForm<ISingUpForm>({
+    resolver: yupResolver(schemaSingUpWithEmailAndPassword),
+  });
   const {
     theme: { fontSize, fonts, colors },
   } = useTheme();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { singUpWithEmailAndPassword } = useAuth();
+
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <SafeAreaView
@@ -46,16 +52,8 @@ export const SingUp = () => {
               justifyContent: 'flex-end',
             }}
           >
-            <Heading
-              style={{ fontSize: fontSize[24], fontFamily: fonts.Lexend[500] }}
-            >
-              Olá,
-            </Heading>
-            <Heading
-              style={{ fontSize: fontSize[24], fontFamily: fonts.Lexend[400] }}
-            >
-              Acesse sua conta
-            </Heading>
+            <Heading>Olá,</Heading>
+            <Heading fontWeight="400">Acesse sua conta</Heading>
             <Root _focus={{ borderWidth: 2 }}>
               <FontAwesome
                 name="envelope-o"
@@ -101,7 +99,23 @@ export const SingUp = () => {
             >
               Esqueceu sua senha ?
             </Text>
-            <Button title="Entrar" />
+            <Button
+              title="Entrar"
+              isLoading={isLoading}
+              onPress={async () => {
+                try {
+                  setIsLoading(true);
+                  await singUpWithEmailAndPassword({
+                    email: 'gabreilsntosoliveira95@gmail.com',
+                    password: '0',
+                  });
+                } catch (error) {
+                  console.log(JSON.stringify(error));
+                } finally {
+                  setIsLoading(false);
+                }
+              }}
+            />
           </View>
         </View>
         <Footer />
