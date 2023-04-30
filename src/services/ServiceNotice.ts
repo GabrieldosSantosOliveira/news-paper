@@ -1,8 +1,8 @@
-import { env } from '@/config';
+import { env } from '@/config/env';
 import { UnexpectedError } from '@/errors/UnexpectedError';
-import { makeUrl } from '@/factories';
+import { makeUrl } from '@/factories/makeUrl';
 import { HttpStatusCode } from '@/helpers/http/HttpStatusCode';
-import { HttpService } from '@/interfaces';
+import { HttpService } from '@/interfaces/HttpService';
 import { NoticeDto } from '@/models/NoticeDto';
 import { NoticePaginationDto } from '@/models/NoticePaginationDto';
 export class ServiceNotice {

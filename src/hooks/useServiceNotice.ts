@@ -1,4 +1,4 @@
-import { ServiceNotice } from '@/services';
+import { ServiceNotice } from '@/services/ServiceNotice';
 
 import { useHttpService } from './useHttpService';
 

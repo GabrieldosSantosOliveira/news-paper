@@ -1,5 +1,5 @@
-import { Heading as PrimitiveHeading } from '@/components';
-import { useTheme } from '@/hooks';
+import { Heading as PrimitiveHeading } from '@/components/Heading';
+import { useTheme } from '@/hooks/useTheme';
 import { FC } from 'react';
 export interface HeadingProps {
   children?: React.ReactNode;

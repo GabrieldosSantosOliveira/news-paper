@@ -1,5 +1,5 @@
-import { useTheme } from '@/hooks';
 import { useConstantsToast } from '@/hooks/useConstantsToast';
+import { useTheme } from '@/hooks/useTheme';
 import { FC, useEffect } from 'react';
 import { Text, ViewProps, StyleSheet } from 'react-native';
 import Animated, {

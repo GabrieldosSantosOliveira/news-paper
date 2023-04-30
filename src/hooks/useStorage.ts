@@ -1,5 +1,5 @@
-import { StorageContext } from '@/contexts';
-import { WithoutProviderError } from '@/errors';
+import { StorageContext } from '@/contexts/StorageContext';
+import { WithoutProviderError } from '@/errors/WithoutProviderError';
 import { useContext } from 'react';
 export const useStorage = () => {
   const value = useContext(StorageContext);

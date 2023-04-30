@@ -19,7 +19,12 @@ export function ControlledInput<FormType extends FieldValues>({
       rules={rules}
       shouldUnregister={shouldUnregister}
       render={({ field: { onBlur, onChange, value } }) => (
-        <Input onBlur={onBlur} onChange={onChange} value={value} {...props} />
+        <Input
+          onBlur={onBlur}
+          onChangeText={onChange}
+          value={value}
+          {...props}
+        />
       )}
     />
   );

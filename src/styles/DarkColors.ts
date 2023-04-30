@@ -20,6 +20,7 @@ export const DarkColors = {
   input: {
     primary: {
       border: '#CCCCCC',
+      borderOnFocus: '#7C3AED',
       icon: '#CCCCCC',
     },
   },

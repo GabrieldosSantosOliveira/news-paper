@@ -1,5 +1,5 @@
-import { InputContext } from '@/contexts';
-import { WithoutProviderError } from '@/errors';
+import { InputContext } from '@/contexts/InputContext';
+import { WithoutProviderError } from '@/errors/WithoutProviderError';
 import { useContext } from 'react';
 
 export const useInput = () => {

@@ -1,4 +1,4 @@
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { StatusBar as ReactNativeStatusBar } from 'react-native';
 export const StatusBar = () => {
   const { colorMode } = useTheme();

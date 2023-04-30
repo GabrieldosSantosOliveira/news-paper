@@ -1,4 +1,5 @@
-import { useInput, useTheme } from '@/hooks';
+import { useInput } from '@/hooks/useInput';
+import { useTheme } from '@/hooks/useTheme';
 import { FC, memo } from 'react';
 import { TextInput, TextInputProps } from 'react-native';
 export type InputProps = TextInputProps;

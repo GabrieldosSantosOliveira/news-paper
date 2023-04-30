@@ -1,5 +1,5 @@
-import { BoxEmpty } from '@/components';
-import { useTheme } from '@/hooks';
+import { BoxEmpty } from '@/components/BoxEmpty';
+import { useTheme } from '@/hooks/useTheme';
 import { FontAwesome } from '@expo/vector-icons';
 import { Text, TouchableOpacity, View } from 'react-native';
 

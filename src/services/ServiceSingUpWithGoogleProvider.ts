@@ -1,9 +1,9 @@
-import { env } from '@/config';
-import { UnexpectedError } from '@/errors';
-import { makeUrl } from '@/factories';
-import { HttpStatusCode } from '@/helpers';
-import { HttpService } from '@/interfaces';
-import { AuthDto } from '@/models';
+import { env } from '@/config/env';
+import { UnexpectedError } from '@/errors/UnexpectedError';
+import { makeUrl } from '@/factories/makeUrl';
+import { HttpStatusCode } from '@/helpers/http/HttpStatusCode';
+import { HttpService } from '@/interfaces/HttpService';
+import { AuthDto } from '@/models/AuthDto';
 
 export class ServiceSingUpWithGoogleProvider {
   constructor(private readonly httpService: HttpService) {}

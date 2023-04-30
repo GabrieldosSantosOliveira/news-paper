@@ -1,5 +1,5 @@
 import GoogleLogo from '@/assets/images/google-icon.svg';
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { FC } from 'react';
 import {
   ActivityIndicator,

@@ -1,6 +1,8 @@
-import { env } from '@/config';
+import { env } from '@/config/env';
+import { UnexpectedError } from '@/errors/UnexpectedError';
 import { useHttpService } from '@/hooks/useHttpService';
-import { AuthorDto } from '@/models';
+import { useStorage } from '@/hooks/useStorage';
+import { AuthorDto } from '@/models/AuthorDto';
 import { ServiceAuthor } from '@/services/ServiceAuthor';
 import { ServiceSingUpWithEmailAndPassword } from '@/services/ServiceSingUpWithEmailAndPassword';
 import { ServiceSingUpWithGoogleProvider } from '@/services/ServiceSingUpWithGoogleProvider';
@@ -26,23 +28,33 @@ export interface IAuthProvider {
 export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
   const [author, setAuthor] = useState<AuthorDto | null>(null);
   const { httpService } = useHttpService();
+  const { storage } = useStorage();
   const serviceSingUpWithEmailAndPassword =
     new ServiceSingUpWithEmailAndPassword(httpService);
   const serviceSingUpWithGoogleProvider = new ServiceSingUpWithGoogleProvider(
     httpService,
   );
   const serviceAuthor = new ServiceAuthor(httpService);
-
+  const promptAsyncGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
+      await GoogleSignin.signIn();
+      return await GoogleSignin.getTokens();
+    } catch {
+      throw new UnexpectedError();
+    }
+  };
   const singUpWithGoogleProvider = async () => {
-    await GoogleSignin.hasPlayServices({
-      showPlayServicesUpdateDialog: true,
-    });
-    await GoogleSignin.signOut();
-    await GoogleSignin.signIn();
-    const { accessToken } = await GoogleSignin.getTokens();
+    const { accessToken } = await promptAsyncGoogle();
     const refreshAndAccessToken = await serviceSingUpWithGoogleProvider.handle(
       accessToken,
     );
+    await storage.multiSet([
+      ['@refreshToken', refreshAndAccessToken.data.refreshToken],
+      ['@accessToken', refreshAndAccessToken.data.accessToken],
+    ]);
     const author = await serviceAuthor.get(
       refreshAndAccessToken.data.accessToken,
     );
@@ -53,10 +65,15 @@ export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
     email,
     password,
   }: SingUpWithEmailAndPasswordParams) => {
-    const {
-      data: { accessToken },
-    } = await serviceSingUpWithEmailAndPassword.handle({ email, password });
-    const author = await serviceAuthor.get(accessToken);
+    const refreshAndAccessToken =
+      await serviceSingUpWithEmailAndPassword.handle({ email, password });
+    await storage.multiSet([
+      ['@refreshToken', refreshAndAccessToken.data.refreshToken],
+      ['@accessToken', refreshAndAccessToken.data.accessToken],
+    ]);
+    const author = await serviceAuthor.get(
+      refreshAndAccessToken.data.accessToken,
+    );
     setAuthor(author.data);
   };
   useEffect(() => {

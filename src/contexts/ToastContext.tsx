@@ -1,4 +1,4 @@
-import { Toast, ToastProps } from '@/components/Toast';
+import { Toast, ToastProps } from '@/components/Toast/Toast';
 import { createContext, FC, ReactNode, useState } from 'react';
 type ShowToastProps = Pick<
   ToastProps,

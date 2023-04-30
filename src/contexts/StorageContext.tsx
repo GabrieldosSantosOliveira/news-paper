@@ -1,5 +1,5 @@
-import { Storage } from '@/interfaces';
-import { StorageImpl } from '@/services';
+import { Storage } from '@/interfaces/Storage';
+import { StorageImpl } from '@/services/StorageImpl';
 import { createContext, FC, ReactNode } from 'react';
 export interface IStorageContext {
   storage: Storage;

@@ -1,4 +1,4 @@
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { memo } from 'react';
 import { View } from 'react-native';
 

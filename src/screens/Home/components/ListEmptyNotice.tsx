@@ -1,4 +1,4 @@
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { View, Text } from 'react-native';
 
 export const ListEmptyNotice = () => {

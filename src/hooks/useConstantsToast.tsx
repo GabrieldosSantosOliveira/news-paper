@@ -1,5 +1,5 @@
-import { ToastPropsType } from '@/components/Toast';
-import { ToastIcons } from '@/components/Toast';
+import { ToastPropsType } from '@/components/Toast/Toast';
+import { ToastIcons } from '@/components/Toast/ToastIcon';
 import { SharedValue } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 

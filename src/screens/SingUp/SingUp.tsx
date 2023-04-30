@@ -1,16 +1,21 @@
-import { Button, ControlledInput, Root, SafeAreaView } from '@/components';
-import { useAuth, useTheme } from '@/hooks';
+import { Button } from '@/components/Button/Button';
+import { ControlledInput } from '@/components/Input/ControlledInput';
+import { Root } from '@/components/Input/Root';
+import { SafeAreaView } from '@/components/SafeAreaView';
+import { useAuth } from '@/hooks/useAuth';
+import { useTheme } from '@/hooks/useTheme';
+import { useToast } from '@/hooks/useToast';
+import { schemaSingUpWithEmailAndPassword } from '@/validations/schemaSingUpWithEmailAndPassword';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import {
   Text,
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-import * as yup from 'yup';
 
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -19,12 +24,9 @@ export interface ISingUpForm {
   email: string;
   password: string;
 }
-const schemaSingUpWithEmailAndPassword = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().required().min(6),
-});
+
 export const SingUp = () => {
-  const { control } = useForm<ISingUpForm>({
+  const { control, handleSubmit } = useForm<ISingUpForm>({
     resolver: yupResolver(schemaSingUpWithEmailAndPassword),
   });
   const {
@@ -32,8 +34,50 @@ export const SingUp = () => {
   } = useTheme();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { singUpWithEmailAndPassword } = useAuth();
 
+  const { singUpWithEmailAndPassword } = useAuth();
+  const toast = useToast();
+  const handleSingUpWithEmail: SubmitHandler<ISingUpForm> = async ({
+    email,
+    password,
+  }) => {
+    try {
+      setIsLoading(true);
+      await singUpWithEmailAndPassword({
+        email,
+        password,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.show({
+          message: error.message,
+          position: 'top',
+          type: 'error',
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleSendMessageOfError: SubmitErrorHandler<ISingUpForm> = ({
+    email,
+    password,
+  }) => {
+    if (email?.message) {
+      toast.show({
+        message: email?.message,
+        position: 'top',
+        type: 'error',
+      });
+    }
+    if (password?.message) {
+      toast.show({
+        message: password?.message,
+        position: 'top',
+        type: 'error',
+      });
+    }
+  };
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <SafeAreaView
@@ -54,7 +98,12 @@ export const SingUp = () => {
           >
             <Heading>Olá,</Heading>
             <Heading fontWeight="400">Acesse sua conta</Heading>
-            <Root _focus={{ borderWidth: 2 }}>
+            <Root
+              _focus={{
+                borderWidth: 2,
+                borderColor: colors.input.primary.borderOnFocus,
+              }}
+            >
               <FontAwesome
                 name="envelope-o"
                 size={24}
@@ -67,7 +116,12 @@ export const SingUp = () => {
                 autoComplete="email"
               />
             </Root>
-            <Root _focus={{ borderWidth: 2 }}>
+            <Root
+              _focus={{
+                borderWidth: 2,
+                borderColor: colors.input.primary.borderOnFocus,
+              }}
+            >
               <Feather name="lock" size={24} color={colors.text.primary} />
               <ControlledInput
                 control={control}
@@ -102,19 +156,10 @@ export const SingUp = () => {
             <Button
               title="Entrar"
               isLoading={isLoading}
-              onPress={async () => {
-                try {
-                  setIsLoading(true);
-                  await singUpWithEmailAndPassword({
-                    email: 'gabreilsntosoliveira95@gmail.com',
-                    password: '0',
-                  });
-                } catch (error) {
-                  console.log(JSON.stringify(error));
-                } finally {
-                  setIsLoading(false);
-                }
-              }}
+              onPress={handleSubmit(
+                handleSingUpWithEmail,
+                handleSendMessageOfError,
+              )}
             />
           </View>
         </View>

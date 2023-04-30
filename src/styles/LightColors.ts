@@ -20,6 +20,7 @@ export const LightColors = {
   input: {
     primary: {
       border: '#CCCCCC',
+      borderOnFocus: '#09090A',
       icon: '#CCCCCC',
     },
   },

@@ -1,11 +1,11 @@
-import { env } from '@/config';
-import { UnexpectedError } from '@/errors';
+import { env } from '@/config/env';
 import { AuthorNotFoundError } from '@/errors/AuthorNotFoundError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
-import { makeUrl } from '@/factories';
-import { HttpStatusCode } from '@/helpers';
-import { HttpService } from '@/interfaces';
-import { AuthorDto } from '@/models';
+import { UnexpectedError } from '@/errors/UnexpectedError';
+import { makeUrl } from '@/factories/makeUrl';
+import { HttpStatusCode } from '@/helpers/http/HttpStatusCode';
+import { HttpService } from '@/interfaces/HttpService';
+import { AuthorDto } from '@/models/AuthorDto';
 
 export class ServiceAuthor {
   constructor(private readonly httpService: HttpService) {}

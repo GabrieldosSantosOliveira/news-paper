@@ -1,4 +1,4 @@
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity, View } from 'react-native';
 export const Header = () => {

@@ -1,11 +1,17 @@
-import { BoxEmpty, LoadingFlatList, Notice, SafeAreaView } from '@/components';
-import { useServiceNotice, useTheme } from '@/hooks';
-import { NoticeDto } from '@/models';
+import { BoxEmpty } from '@/components/BoxEmpty';
+import { LoadingFlatList } from '@/components/Loading/LoadingFlatList';
+import { Notice } from '@/components/Notice/Notice';
+import { SafeAreaView } from '@/components/SafeAreaView';
+import { useServiceNotice } from '@/hooks/useServiceNotice';
+import { useTheme } from '@/hooks/useTheme';
+import { NoticeDto } from '@/models/NoticeDto';
 import { removeDuplicatedNotices } from '@/utils/notice/removeDuplicatedNotices';
 import { useState, useEffect, useCallback } from 'react';
 import { FlatList, ListRenderItem, RefreshControl } from 'react-native';
 
-import { Header, ListEmptyNotice, LoadingNotices } from './components';
+import { Header } from './components/Header';
+import { ListEmptyNotice } from './components/ListEmptyNotice';
+import { LoadingNotices } from './components/LoadingNotices';
 
 export interface FooterLoadingProps {
   isLoading: boolean;

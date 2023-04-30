@@ -1,12 +1,12 @@
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
-import { Loading, StatusBar } from '@/components';
-import {
-  AuthProvider,
-  HttpServiceProvider,
-  StorageProvider,
-  ThemeProvider,
-} from '@/contexts';
+
+import { Loading } from '@/components/Loading/Loading';
+import { StatusBar } from '@/components/StatusBar';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { HttpServiceProvider } from '@/contexts/HttpContext';
+import { StorageProvider } from '@/contexts/StorageContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ToastProvider } from '@/contexts/ToastContext';
 import { SingUp } from '@/screens/SingUp/SingUp';
 import {

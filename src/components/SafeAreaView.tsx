@@ -1,4 +1,4 @@
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { FC } from 'react';
 import {
   SafeAreaView as ReactNativeSafeAreaView,

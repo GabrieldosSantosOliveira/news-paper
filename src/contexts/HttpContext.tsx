@@ -1,5 +1,5 @@
-import { HttpService } from '@/interfaces';
-import { HttpServiceImpl } from '@/services';
+import { HttpService } from '@/interfaces/HttpService';
+import { HttpServiceImpl } from '@/services/HttpServiceImpl';
 import { createContext, FC, ReactNode } from 'react';
 export interface IHttpServiceContext {
   httpService: HttpService;

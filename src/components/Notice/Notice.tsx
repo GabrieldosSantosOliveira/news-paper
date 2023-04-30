@@ -1,5 +1,5 @@
-import { useTheme } from '@/hooks';
-import { NoticeDto } from '@/models';
+import { useTheme } from '@/hooks/useTheme';
+import { NoticeDto } from '@/models/NoticeDto';
 import { FC, memo, useState } from 'react';
 import { Text, Image, View, TouchableOpacity } from 'react-native';
 

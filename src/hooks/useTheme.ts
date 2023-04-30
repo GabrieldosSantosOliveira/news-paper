@@ -1,5 +1,5 @@
-import { ThemeContext } from '@/contexts';
-import { WithoutProviderError } from '@/errors';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import { WithoutProviderError } from '@/errors/WithoutProviderError';
 import { useContext } from 'react';
 export const useTheme = () => {
   const value = useContext(ThemeContext);

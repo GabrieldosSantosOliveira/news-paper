@@ -1,5 +1,6 @@
-import { BoxEmpty, SkeletonNotice } from '@/components';
-import { useTheme } from '@/hooks';
+import { BoxEmpty } from '@/components/BoxEmpty';
+import { SkeletonNotice } from '@/components/Notice/SkeletonNotice';
+import { useTheme } from '@/hooks/useTheme';
 import { useCallback } from 'react';
 import { FlatList } from 'react-native';
 export const LoadingNotices = () => {

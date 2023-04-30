@@ -1,5 +1,6 @@
-import { InputProvider } from '@/contexts';
-import { useInput, useTheme } from '@/hooks';
+import { InputProvider } from '@/contexts/InputContext';
+import { useInput } from '@/hooks/useInput';
+import { useTheme } from '@/hooks/useTheme';
 import { FC, ReactNode, memo } from 'react';
 import { View, ViewProps } from 'react-native';
 export type RootProps = ViewProps & {

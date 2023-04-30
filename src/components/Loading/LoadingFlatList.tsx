@@ -1,4 +1,4 @@
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { FC } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 export interface LoadingFlatListProps {

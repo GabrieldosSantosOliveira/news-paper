@@ -1,17 +1,36 @@
-import { ButtonGoogle } from '@/components';
-import { useAuth, useTheme } from '@/hooks';
+import { ButtonGoogle } from '@/components/Button/ButtonGoogle';
+import { useAuth } from '@/hooks/useAuth';
+import { useTheme } from '@/hooks/useTheme';
+import { useToast } from '@/hooks/useToast';
+import { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 export const Footer = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     theme: { colors, fontSize, fonts },
   } = useTheme();
-  const { singUpWithGoogleProvider, authorLoading } = useAuth();
-
+  const { singUpWithGoogleProvider } = useAuth();
+  const toast = useToast();
+  const handleSingUpWithGoogleProvider = async () => {
+    try {
+      setIsLoading(true);
+      await singUpWithGoogleProvider();
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.show({
+          type: 'error',
+          message: error.message,
+        });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <View style={{ paddingHorizontal: 20, paddingBottom: 40, gap: 20 }}>
       <ButtonGoogle
-        onPress={singUpWithGoogleProvider}
-        isLoading={authorLoading}
+        onPress={handleSingUpWithGoogleProvider}
+        isLoading={isLoading}
       />
       <View
         style={{

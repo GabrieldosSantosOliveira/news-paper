@@ -1,4 +1,4 @@
-import { useTheme } from '@/hooks';
+import { useTheme } from '@/hooks/useTheme';
 import { View, ActivityIndicator } from 'react-native';
 export const Loading = () => {
   const {

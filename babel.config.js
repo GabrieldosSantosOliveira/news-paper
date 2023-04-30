@@ -22,6 +22,7 @@ module.exports = function (api) {
             '@/services': './src/services',
             '@/styles': './src/styles',
             '@/utils': './src/utils',
+            '@/validations': './src/validations',
           },
         },
       ],

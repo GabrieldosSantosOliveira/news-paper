@@ -1,4 +1,4 @@
-import { ResponsiveFontScale } from '@/utils';
+import { ResponsiveFontScale } from '@/utils/font/ResponsiveFontScale';
 export const ThemeFontSize = {
   1: ResponsiveFontScale(1),
   2: ResponsiveFontScale(2),
