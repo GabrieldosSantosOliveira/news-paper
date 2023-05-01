@@ -8,7 +8,7 @@ import { HttpServiceProvider } from '@/contexts/HttpContext';
 import { StorageProvider } from '@/contexts/StorageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { ToastProvider } from '@/contexts/ToastContext';
-import { SingUp } from '@/screens/SingUp/SingUp';
+import { Routes } from '@/routes/routes';
 import {
   useFonts,
   Lexend_400Regular,
@@ -37,7 +37,7 @@ export default function App() {
             <AuthProvider>
               <ToastProvider>
                 <StatusBar />
-                {isFontsLoaded ? <SingUp /> : <Loading />}
+                {isFontsLoaded ? <Routes /> : <Loading />}
               </ToastProvider>
             </AuthProvider>
           </SafeAreaProvider>

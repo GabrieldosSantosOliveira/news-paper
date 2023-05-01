@@ -1,4 +1,4 @@
-import { NoticeDto } from '@/models';
+import { NoticeDto } from '@/models/NoticeDto';
 
 export const removeDuplicatedNotices = (
   previous: NoticeDto[] = [],

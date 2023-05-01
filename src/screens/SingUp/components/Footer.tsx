@@ -2,6 +2,7 @@ import { ButtonGoogle } from '@/components/Button/ButtonGoogle';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 export const Footer = () => {
@@ -9,12 +10,17 @@ export const Footer = () => {
   const {
     theme: { colors, fontSize, fonts },
   } = useTheme();
+  const { navigate } = useNavigation();
   const { singUpWithGoogleProvider } = useAuth();
   const toast = useToast();
   const handleSingUpWithGoogleProvider = async () => {
     try {
       setIsLoading(true);
       await singUpWithGoogleProvider();
+      toast.clear();
+      navigate('Tab', {
+        screen: 'Home',
+      });
     } catch (error) {
       if (error instanceof Error) {
         toast.show({

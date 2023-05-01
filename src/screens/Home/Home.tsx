@@ -27,6 +27,7 @@ export const Home = () => {
   const {
     theme: { size },
   } = useTheme();
+
   async function fetchNoticies() {
     try {
       if (!hasMoreData) return;

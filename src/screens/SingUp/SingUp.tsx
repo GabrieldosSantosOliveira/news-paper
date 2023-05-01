@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/useToast';
 import { schemaSingUpWithEmailAndPassword } from '@/validations/schemaSingUpWithEmailAndPassword';
 import { FontAwesome, Feather } from '@expo/vector-icons';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import {
@@ -34,7 +35,7 @@ export const SingUp = () => {
   } = useTheme();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const { navigate } = useNavigation();
   const { singUpWithEmailAndPassword } = useAuth();
   const toast = useToast();
   const handleSingUpWithEmail: SubmitHandler<ISingUpForm> = async ({
@@ -46,6 +47,10 @@ export const SingUp = () => {
       await singUpWithEmailAndPassword({
         email,
         password,
+      });
+      toast.clear();
+      navigate('Tab', {
+        screen: 'Home',
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -114,6 +119,7 @@ export const SingUp = () => {
                 name="email"
                 control={control}
                 autoComplete="email"
+                autoFocus
               />
             </Root>
             <Root
