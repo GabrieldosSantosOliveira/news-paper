@@ -1,5 +1,4 @@
 import { Button } from '@/components/Button/Button';
-import { Icons } from '@/components/Icons/Icons';
 import { ControlledInput } from '@/components/Input/ControlledInput';
 import { Root } from '@/components/Input/Root';
 import { Text } from '@/components/Text';
@@ -8,6 +7,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
 import { setEmail } from '@/redux/ForgotPassword/forgotPasswordSlice';
 import { ServiceForgotPassword } from '@/services/ServiceForgotPassword';
+import { Icons } from '@/styles/Icons';
 import { useId, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';

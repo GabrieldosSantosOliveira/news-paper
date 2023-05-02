@@ -1,5 +1,4 @@
 import { Button } from '@/components/Button/Button';
-import { Icons } from '@/components/Icons/Icons';
 import { ControlledInput } from '@/components/Input/ControlledInput';
 import { Root } from '@/components/Input/Root';
 import { Text } from '@/components/Text';
@@ -9,6 +8,7 @@ import { useSelectorForgotPassword } from '@/hooks/useSelectorForgotPassword';
 import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
 import { ServiceResetPassword } from '@/services/ServiceResetPassword';
+import { Icons } from '@/styles/Icons';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

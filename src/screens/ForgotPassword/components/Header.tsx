@@ -1,9 +1,9 @@
-import { Icons } from '@/components/Icons/Icons';
 import { Progressbar } from '@/components/Progressbar';
 import { Text } from '@/components/Text';
 import { useSelectorForgotPassword } from '@/hooks/useSelectorForgotPassword';
 import { useTheme } from '@/hooks/useTheme';
 import { goBackScreen } from '@/redux/ForgotPassword/forgotPasswordSlice';
+import { Icons } from '@/styles/Icons';
 import { useNavigation } from '@react-navigation/native';
 import { FC } from 'react';
 import { TouchableOpacity, View } from 'react-native';
