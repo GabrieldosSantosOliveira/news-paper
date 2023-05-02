@@ -1,7 +1,7 @@
 import { Controller, UseControllerProps, FieldValues } from 'react-hook-form';
 
 import { Input, InputProps } from './Input';
-export type ControlledInput<T extends FieldValues> = InputProps &
+export type ControlledInputProps<T extends FieldValues> = InputProps &
   UseControllerProps<T>;
 export function ControlledInput<FormType extends FieldValues>({
   control,
@@ -10,7 +10,7 @@ export function ControlledInput<FormType extends FieldValues>({
   rules,
   shouldUnregister,
   ...props
-}: ControlledInput<FormType>) {
+}: ControlledInputProps<FormType>) {
   return (
     <Controller
       control={control}
