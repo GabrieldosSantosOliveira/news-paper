@@ -1,21 +1,24 @@
 import { useInput } from '@/hooks/useInput';
 import { useTheme } from '@/hooks/useTheme';
-import { FC, memo } from 'react';
+import { memo, forwardRef, ForwardRefRenderFunction } from 'react';
 import { TextInput, TextInputProps } from 'react-native';
 export type InputProps = TextInputProps;
-const InputBase: FC<InputProps> = ({ onBlur, onFocus, style, ...props }) => {
+const InputBase: ForwardRefRenderFunction<TextInput, InputProps> = (
+  { onBlur, onFocus, style, ...props },
+  ref,
+) => {
   const { changeToWithoutFocus, changeToWithFocus } = useInput();
   const {
     theme: { fonts, colors },
   } = useTheme();
   return (
     <TextInput
+      ref={ref}
       style={[
         { flex: 1, fontFamily: fonts.Lexend[500], color: colors.text.primary },
         style,
       ]}
       placeholderTextColor={colors.text.subTitle}
-      {...props}
       onBlur={(e) => {
         changeToWithoutFocus();
         onBlur ? onBlur(e) : null;
@@ -24,7 +27,8 @@ const InputBase: FC<InputProps> = ({ onBlur, onFocus, style, ...props }) => {
         changeToWithFocus();
         onFocus ? onFocus(e) : null;
       }}
+      {...props}
     />
   );
 };
-export const Input = memo(InputBase);
+export const Input = memo(forwardRef(InputBase));
