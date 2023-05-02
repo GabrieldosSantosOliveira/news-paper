@@ -6,7 +6,7 @@ import {
   HttpServiceInterceptors,
   HttpServiceResponse,
 } from '@/interfaces/HttpService';
-
+import axios, { isAxiosError } from 'axios';
 export class HttpServiceImpl implements HttpService {
   public interceptors: HttpServiceInterceptors = {
     response: {
@@ -18,26 +18,25 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
-      const headers = new Headers();
-      headers.append(
-        'Content-Type',
-        options?.headers?.contentType || 'application/json',
-      );
-      headers.append('Authorization', options?.headers?.authorization || '');
-      const res = await fetch(url, {
-        method: 'GET',
-        body: JSON.stringify(options?.body),
-        headers,
-      });
-      const data = (await res.json()) as T;
+      axios.defaults.headers.common.Authorization =
+        options?.headers?.authorization;
+      axios.defaults.headers.common['Content-Type'] =
+        options?.headers?.contentType || 'application/json';
+      const res = await axios.get(url, options?.body);
       if (res.status >= 400) {
         return await this.interceptors.response.onRejected({
-          data,
+          data: res.data,
           statusCode: res.status,
         });
       }
-      return { data, statusCode: res.status };
-    } catch {
+      return { data: res.data, statusCode: res.status };
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status) {
+        return {
+          data: error.response?.data,
+          statusCode: error.response?.status,
+        };
+      }
       throw new UnexpectedError();
     }
   }
@@ -46,26 +45,25 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
-      const headers = new Headers();
-      headers.append(
-        'Content-Type',
-        options?.headers?.contentType || 'application/json',
-      );
-      headers.append('Authorization', options?.headers?.authorization || '');
-      const res = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(options?.body),
-        headers,
-      });
-      const data = (await res.json()) as T;
+      axios.defaults.headers.common.Authorization =
+        options?.headers?.authorization;
+      axios.defaults.headers.common['Content-Type'] =
+        options?.headers?.contentType || 'application/json';
+      const res = await axios.post(url, options?.body);
       if (res.status >= 400) {
         return await this.interceptors.response.onRejected({
-          data,
+          data: res.data,
           statusCode: res.status,
         });
       }
-      return { data, statusCode: res.status };
-    } catch {
+      return { data: res.data, statusCode: res.status };
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status) {
+        return {
+          data: error.response?.data,
+          statusCode: error.response?.status,
+        };
+      }
       throw new UnexpectedError();
     }
   }
@@ -74,26 +72,25 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
-      const headers = new Headers();
-      headers.append(
-        'Content-Type',
-        options?.headers?.contentType || 'application/json',
-      );
-      headers.append('Authorization', options?.headers?.authorization || '');
-      const res = await fetch(url, {
-        method: 'PUT',
-        body: JSON.stringify(options?.body),
-        headers,
-      });
-      const data = (await res.json()) as T;
+      axios.defaults.headers.common.Authorization =
+        options?.headers?.authorization;
+      axios.defaults.headers.common['Content-Type'] =
+        options?.headers?.contentType || 'application/json';
+      const res = await axios.put(url, options?.body);
       if (res.status >= 400) {
         return await this.interceptors.response.onRejected({
-          data,
+          data: res.data,
           statusCode: res.status,
         });
       }
-      return { data, statusCode: res.status };
-    } catch {
+      return { data: res.data, statusCode: res.status };
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status) {
+        return {
+          data: error.response?.data,
+          statusCode: error.response?.status,
+        };
+      }
       throw new UnexpectedError();
     }
   }
@@ -102,27 +99,25 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
-      const headers = new Headers();
-      headers.append(
-        'Content-Type',
-        options?.headers?.contentType || 'application/json',
-      );
-      headers.append('Authorization', options?.headers?.authorization || '');
-
-      const res = await fetch(url, {
-        method: 'DELETE',
-        body: JSON.stringify(options?.body),
-        headers,
-      });
-      const data = (await res.json()) as T;
+      axios.defaults.headers.common.Authorization =
+        options?.headers?.authorization;
+      axios.defaults.headers.common['Content-Type'] =
+        options?.headers?.contentType || 'application/json';
+      const res = await axios.delete(url, options?.body);
       if (res.status >= 400) {
         return await this.interceptors.response.onRejected({
-          data,
+          data: res.data,
           statusCode: res.status,
         });
       }
-      return { data, statusCode: res.status };
-    } catch {
+      return { data: res.data, statusCode: res.status };
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status) {
+        return {
+          data: error.response?.data,
+          statusCode: error.response?.status,
+        };
+      }
       throw new UnexpectedError();
     }
   }
@@ -131,26 +126,25 @@ export class HttpServiceImpl implements HttpService {
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>> {
     try {
-      const headers = new Headers();
-      headers.append(
-        'Content-Type',
-        options?.headers?.contentType || 'application/json',
-      );
-      headers.append('Authorization', options?.headers?.authorization || '');
-      const res = await fetch(url, {
-        method: 'PATCH',
-        body: JSON.stringify(options?.body),
-        headers,
-      });
-      const data = (await res.json()) as T;
+      axios.defaults.headers.common.Authorization =
+        options?.headers?.authorization;
+      axios.defaults.headers.common['Content-Type'] =
+        options?.headers?.contentType || 'application/json';
+      const res = await axios.patch(url, options?.body);
       if (res.status >= 400) {
         return await this.interceptors.response.onRejected({
-          data,
+          data: res.data,
           statusCode: res.status,
         });
       }
-      return { data, statusCode: res.status };
-    } catch {
+      return { data: res.data, statusCode: res.status };
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status) {
+        return {
+          data: error.response?.data,
+          statusCode: error.response?.status,
+        };
+      }
       throw new UnexpectedError();
     }
   }
