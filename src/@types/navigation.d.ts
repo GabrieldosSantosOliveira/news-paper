@@ -7,6 +7,8 @@ export declare global {
   namespace ReactNavigation {
     interface RootParamList {
       SingUp: undefined;
+      ForgotPassword: undefined;
+      Help: undefined;
       Tab: NavigatorScreenParams<BottomTabParamList>;
     }
   }
