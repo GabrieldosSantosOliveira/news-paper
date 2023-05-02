@@ -4,6 +4,7 @@ import { Notice } from '@/components/Notice/Notice';
 import { SafeAreaView } from '@/components/SafeAreaView';
 import { useServiceNotice } from '@/hooks/useServiceNotice';
 import { useTheme } from '@/hooks/useTheme';
+import { useToast } from '@/hooks/useToast';
 import { NoticeDto } from '@/models/NoticeDto';
 import { removeDuplicatedNotices } from '@/utils/notice/removeDuplicatedNotices';
 import { useState, useEffect, useCallback } from 'react';
@@ -19,7 +20,7 @@ export interface FooterLoadingProps {
 export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasMoreData, setHasMoreData] = useState(true);
-
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [notices, setNotices] = useState<NoticeDto[]>([]);
 
@@ -27,7 +28,7 @@ export const Home = () => {
   const {
     theme: { size },
   } = useTheme();
-
+  const toast = useToast();
   async function fetchNoticies() {
     try {
       if (!hasMoreData) return;
@@ -50,6 +51,30 @@ export const Home = () => {
   const renderItem: ListRenderItem<NoticeDto> = useCallback(({ item }) => {
     return <Notice notice={item} />;
   }, []);
+  const handleRefresh = async () => {
+    try {
+      setIsRefreshing(true);
+      setIsLoading(true);
+      setHasMoreData(true);
+      const { data } = await serviceNotice.getAllNotice(1);
+      const current = data.data;
+      setNotices(current);
+      setPage(2);
+      if (!data.info.next) {
+        setHasMoreData(false);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.show({
+          message: error.message,
+          position: 'top',
+        });
+      }
+    } finally {
+      setIsRefreshing(false);
+      setIsLoading(false);
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1, paddingHorizontal: 10 }}>
       <Header />
@@ -57,7 +82,12 @@ export const Home = () => {
         <LoadingNotices />
       ) : (
         <FlatList
-          refreshControl={<RefreshControl refreshing={false} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+            />
+          }
           contentContainerStyle={[{ paddingBottom: 20 }]}
           data={notices}
           renderItem={renderItem}

@@ -1,7 +1,8 @@
 import { useTheme } from '@/hooks/useTheme';
+import { memo } from 'react';
 import { View, Text } from 'react-native';
 
-export const ListEmptyNotice = () => {
+const ListEmptyNoticeBase = () => {
   const {
     theme: { fontSize, size, fonts, colors },
   } = useTheme();
@@ -28,3 +29,4 @@ export const ListEmptyNotice = () => {
     </View>
   );
 };
+export const ListEmptyNotice = memo(ListEmptyNoticeBase);

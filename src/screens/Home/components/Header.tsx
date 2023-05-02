@@ -3,8 +3,9 @@ import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { memo } from 'react';
 import { Text, TouchableOpacity, View, Image } from 'react-native';
-export const Header = () => {
+const HeaderBase = () => {
   const {
     theme: { colors, fontSize, fonts, size },
   } = useTheme();
@@ -49,3 +50,4 @@ export const Header = () => {
     </View>
   );
 };
+export const Header = memo(HeaderBase);
