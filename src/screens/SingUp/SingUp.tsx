@@ -5,8 +5,8 @@ import { SafeAreaView } from '@/components/SafeAreaView';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
+import { Icons } from '@/styles/Icons';
 import { schemaSingUpWithEmailAndPassword } from '@/validations/schemaSingUpWithEmailAndPassword';
-import { FontAwesome, Feather } from '@expo/vector-icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
@@ -109,11 +109,7 @@ export const SingUp = () => {
                 borderColor: colors.input.primary.borderOnFocus,
               }}
             >
-              <FontAwesome
-                name="envelope-o"
-                size={24}
-                color={colors.text.primary}
-              />
+              <Icons.envelope color={colors.text.primary} />
               <ControlledInput
                 placeholder="Email"
                 name="email"
@@ -128,7 +124,7 @@ export const SingUp = () => {
                 borderColor: colors.input.primary.borderOnFocus,
               }}
             >
-              <Feather name="lock" size={24} color={colors.text.primary} />
+              <Icons.lock color={colors.text.primary} />
               <ControlledInput
                 control={control}
                 placeholder="Senha"
@@ -140,25 +136,23 @@ export const SingUp = () => {
                 onPress={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? (
-                  <Feather name="eye" size={24} color={colors.text.primary} />
+                  <Icons.eye color={colors.text.primary} />
                 ) : (
-                  <Feather
-                    name="eye-off"
-                    size={24}
-                    color={colors.text.primary}
-                  />
+                  <Icons.eyeOff color={colors.text.primary} />
                 )}
               </TouchableOpacity>
             </Root>
-            <Text
-              style={{
-                color: colors.text.primary,
-                fontFamily: fonts.Roboto[500],
-                fontSize: fontSize[15],
-              }}
-            >
-              Esqueceu sua senha ?
-            </Text>
+            <TouchableOpacity onPress={() => navigate('ForgotPassword')}>
+              <Text
+                style={{
+                  color: colors.text.primary,
+                  fontFamily: fonts.Roboto[500],
+                  fontSize: fontSize[15],
+                }}
+              >
+                Esqueceu sua senha ?
+              </Text>
+            </TouchableOpacity>
             <Button
               title="Entrar"
               isLoading={isLoading}
