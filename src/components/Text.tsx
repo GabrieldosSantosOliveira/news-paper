@@ -42,9 +42,7 @@ export const Text: FC<TextProps> = ({
 
   ...props
 }) => {
-  const {
-    theme: { colors, fontSize },
-  } = useTheme();
+  const { colors, fontSize } = useTheme();
   const textFontSizes = {
     xs: fontSize[12],
     sm: fontSize[14],

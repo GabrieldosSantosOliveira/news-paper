@@ -17,9 +17,7 @@ export const Button: FC<ButtonProps> = ({
   style,
   ...props
 }) => {
-  const {
-    theme: { colors, size, fontSize, fonts },
-  } = useTheme();
+  const { colors, size, fontSize, fonts } = useTheme();
   return (
     <TouchableOpacity
       disabled={isLoading}

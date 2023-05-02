@@ -11,9 +11,7 @@ const NoticeBase: FC<NoticeProps> = ({
   notice: { image, title, description },
 }) => {
   const [isImageLoad, setIsImageLoad] = useState<boolean>(false);
-  const {
-    theme: { colors, fontSize, fonts, size },
-  } = useTheme();
+  const { colors, fontSize, fonts, size } = useTheme();
   return (
     <TouchableOpacity>
       <View style={{ width: 'auto', gap: 10 }}>

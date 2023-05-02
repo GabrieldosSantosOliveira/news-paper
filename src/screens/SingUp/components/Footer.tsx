@@ -3,13 +3,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-export const Footer = () => {
+const FooterBase = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const {
-    theme: { colors, fontSize, fonts },
-  } = useTheme();
+  const { colors, fontSize, fonts } = useTheme();
+
   const { navigate } = useNavigation();
   const { singUpWithGoogleProvider } = useAuth();
   const toast = useToast();
@@ -70,3 +69,4 @@ export const Footer = () => {
     </View>
   );
 };
+export const Footer = memo(FooterBase);

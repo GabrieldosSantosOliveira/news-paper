@@ -4,9 +4,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { memo, useCallback } from 'react';
 import { FlatList } from 'react-native';
 const LoadingNoticesBase = () => {
-  const {
-    theme: { size },
-  } = useTheme();
+  const { size } = useTheme();
   const renderItem = useCallback(() => {
     return <SkeletonNotice />;
   }, []);

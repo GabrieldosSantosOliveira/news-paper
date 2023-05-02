@@ -12,9 +12,7 @@ export interface HeaderProps {
   progress: number;
 }
 export const Header: FC<HeaderProps> = ({ progress }) => {
-  const {
-    theme: { size, colors },
-  } = useTheme();
+  const { size, colors } = useTheme();
   const { navigate, goBack } = useNavigation();
   const { screen } = useSelectorForgotPassword();
   const dispatch = useDispatch();

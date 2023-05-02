@@ -25,9 +25,7 @@ export const Home = () => {
   const [notices, setNotices] = useState<NoticeDto[]>([]);
 
   const { serviceNotice } = useServiceNotice();
-  const {
-    theme: { size },
-  } = useTheme();
+  const { size } = useTheme();
   const toast = useToast();
   async function fetchNoticies() {
     try {

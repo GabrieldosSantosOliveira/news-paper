@@ -8,9 +8,7 @@ import { Header } from './components/Header';
 import { Help as HelpCard } from './components/Help';
 
 export const Help = () => {
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { colors } = useTheme();
   const IconFaq = () => <Icons.infoCircleo color={colors.text.primary} />;
   const IconEnvelope = () => (
     <Icons.envelope size={24} color={colors.text.primary} />

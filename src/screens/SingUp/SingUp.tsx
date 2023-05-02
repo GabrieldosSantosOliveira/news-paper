@@ -10,7 +10,7 @@ import { schemaSingUpWithEmailAndPassword } from '@/validations/schemaSingUpWith
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitErrorHandler, useForm } from 'react-hook-form';
 import {
   Text,
   View,
@@ -30,18 +30,17 @@ export const SingUp = () => {
   const { control, handleSubmit } = useForm<ISingUpForm>({
     resolver: yupResolver(schemaSingUpWithEmailAndPassword),
   });
-  const {
-    theme: { fontSize, fonts, colors },
-  } = useTheme();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { navigate } = useNavigation();
   const { singUpWithEmailAndPassword } = useAuth();
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { fontSize, fonts, colors } = useTheme();
   const toast = useToast();
-  const handleSingUpWithEmail: SubmitHandler<ISingUpForm> = async ({
-    email,
-    password,
-  }) => {
+
+  const handleSingUpWithEmail = async ({ email, password }: ISingUpForm) => {
     try {
       setIsLoading(true);
       await singUpWithEmailAndPassword({
@@ -131,9 +130,19 @@ export const SingUp = () => {
                 name="password"
                 autoComplete="password"
                 secureTextEntry={!showPassword}
+                onSubmitEditing={handleSubmit(
+                  handleSingUpWithEmail,
+                  handleSendMessageOfError,
+                )}
               />
               <TouchableOpacity
                 onPress={() => setShowPassword((prev) => !prev)}
+                accessibilityRole="button"
+                role="button"
+                accessibilityState={{ selected: showPassword }}
+                accessibilityValue={{
+                  text: showPassword ? 'Ocultar senha' : 'Exibir senha',
+                }}
               >
                 {showPassword ? (
                   <Icons.eye color={colors.text.primary} />

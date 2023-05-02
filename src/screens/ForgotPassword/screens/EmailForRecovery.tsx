@@ -19,9 +19,7 @@ export const EmailForRecovery = () => {
   const { control, handleSubmit } = useForm<IEmailForRecoveryForm>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { colors } = useTheme();
   const toast = useToast();
   const { httpService } = useHttpService();
   const serviceForgotPassword = new ServiceForgotPassword(httpService);

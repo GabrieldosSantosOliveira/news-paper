@@ -1,11 +1,10 @@
 import { useTheme } from '@/hooks/useTheme';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-export const Header = () => {
-  const {
-    theme: { size, colors },
-  } = useTheme();
+const HeaderBase = () => {
+  const { size, colors } = useTheme();
   const { goBack } = useNavigation();
   return (
     <View style={{ width: '100%', height: size[20], justifyContent: 'center' }}>
@@ -15,3 +14,4 @@ export const Header = () => {
     </View>
   );
 };
+export const Header = memo(HeaderBase);

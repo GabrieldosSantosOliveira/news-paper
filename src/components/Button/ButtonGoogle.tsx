@@ -18,9 +18,7 @@ export const ButtonGoogle: FC<ButtonGoogleProps> = ({
   onPress,
   isLoading = false,
 }) => {
-  const {
-    theme: { size, colors, fontSize, fonts },
-  } = useTheme();
+  const { size, colors, fontSize, fonts } = useTheme();
   return (
     <TouchableOpacity
       disabled={isLoading}

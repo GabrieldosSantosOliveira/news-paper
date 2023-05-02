@@ -19,9 +19,7 @@ export type IResetPasswordForm = {
 };
 export const ResetPassword = () => {
   const { control, handleSubmit } = useForm<IResetPasswordForm>();
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { colors } = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 

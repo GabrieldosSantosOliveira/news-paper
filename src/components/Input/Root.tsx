@@ -9,9 +9,7 @@ export type RootProps = ViewProps & {
 };
 const RootBase: FC<RootProps> = ({ children, style, _focus, ...props }) => {
   const { hasFocus } = useInput();
-  const {
-    theme: { size, colors },
-  } = useTheme();
+  const { size, colors } = useTheme();
   return (
     <View
       style={[

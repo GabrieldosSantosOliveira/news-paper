@@ -1,14 +1,12 @@
 import { Heading as PrimitiveHeading } from '@/components/Heading';
 import { useTheme } from '@/hooks/useTheme';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 export interface HeadingProps {
   children?: React.ReactNode;
   fontWeight?: '600' | '500' | '400';
 }
-export const Heading: FC<HeadingProps> = ({ fontWeight = '500', children }) => {
-  const {
-    theme: { colors, fontSize, fonts },
-  } = useTheme();
+const HeadingBase: FC<HeadingProps> = ({ fontWeight = '500', children }) => {
+  const { colors, fontSize, fonts } = useTheme();
   return (
     <PrimitiveHeading
       style={{
@@ -21,3 +19,4 @@ export const Heading: FC<HeadingProps> = ({ fontWeight = '500', children }) => {
     </PrimitiveHeading>
   );
 };
+export const Heading = memo(HeadingBase);

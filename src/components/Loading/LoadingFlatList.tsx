@@ -5,9 +5,7 @@ export interface LoadingFlatListProps {
   isLoading: boolean;
 }
 export const LoadingFlatList: FC<LoadingFlatListProps> = ({ isLoading }) => {
-  const {
-    theme: { colors, size },
-  } = useTheme();
+  const { colors, size } = useTheme();
   return (
     <View style={{ paddingVertical: size[5] }}>
       {isLoading ? (

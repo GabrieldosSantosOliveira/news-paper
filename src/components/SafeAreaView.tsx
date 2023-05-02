@@ -5,9 +5,7 @@ import {
   SafeAreaViewProps,
 } from 'react-native-safe-area-context';
 export const SafeAreaView: FC<SafeAreaViewProps> = ({ style, ...props }) => {
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { colors } = useTheme();
   return (
     <ReactNativeSafeAreaView
       style={[{ backgroundColor: colors.background.primary }, style]}

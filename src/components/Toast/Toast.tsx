@@ -37,9 +37,7 @@ export const Toast: FC<ToastProps> = ({
     animatedPositionBottom,
     animatedPositionTop,
   } = useConstantsToast(type);
-  const {
-    theme: { fontSize, fonts },
-  } = useTheme();
+  const { fontSize, fonts } = useTheme();
 
   const animatedStyle = useAnimatedStyle(() => {
     return {

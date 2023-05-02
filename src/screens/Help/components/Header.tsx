@@ -3,9 +3,7 @@ import { Icons } from '@/styles/Icons';
 import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity } from 'react-native';
 export const Header = () => {
-  const {
-    theme: { size, colors },
-  } = useTheme();
+  const { size, colors } = useTheme();
   const { goBack } = useNavigation();
 
   return (

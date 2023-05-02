@@ -18,9 +18,7 @@ export interface IValidationCodeForm {
 }
 export const ValidationCode = () => {
   const { control, handleSubmit } = useForm<IValidationCodeForm>();
-  const {
-    theme: { size, colors },
-  } = useTheme();
+  const { size, colors } = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const refCode1 = useRef<TextInput>(null);

@@ -3,9 +3,7 @@ import { memo } from 'react';
 import { View, Text } from 'react-native';
 
 const ListEmptyNoticeBase = () => {
-  const {
-    theme: { fontSize, size, fonts, colors },
-  } = useTheme();
+  const { fontSize, size, fonts, colors } = useTheme();
   return (
     <View
       style={{

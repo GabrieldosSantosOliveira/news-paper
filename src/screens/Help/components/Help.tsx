@@ -8,9 +8,7 @@ export interface HelpProps {
   description: string;
 }
 export const Help: FC<HelpProps> = ({ icon, description, title }) => {
-  const {
-    theme: { size, colors },
-  } = useTheme();
+  const { size, colors } = useTheme();
   return (
     <TouchableOpacity>
       <View

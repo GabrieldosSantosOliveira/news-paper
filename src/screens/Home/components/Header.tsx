@@ -6,9 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { memo } from 'react';
 import { Text, TouchableOpacity, View, Image } from 'react-native';
 const HeaderBase = () => {
-  const {
-    theme: { colors, fontSize, fonts, size },
-  } = useTheme();
+  const { colors, fontSize, fonts, size } = useTheme();
   const { navigate } = useNavigation();
   const { author } = useAuth();
   const Icon = author?.picture

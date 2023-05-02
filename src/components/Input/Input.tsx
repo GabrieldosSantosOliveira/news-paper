@@ -8,9 +8,7 @@ const InputBase: ForwardRefRenderFunction<TextInput, InputProps> = (
   ref,
 ) => {
   const { changeToWithoutFocus, changeToWithFocus } = useInput();
-  const {
-    theme: { fonts, colors },
-  } = useTheme();
+  const { fonts, colors } = useTheme();
   return (
     <TextInput
       ref={ref}

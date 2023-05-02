@@ -4,9 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const { Screen, Navigator } = createBottomTabNavigator();
 export const Tab = () => {
-  const {
-    theme: { colors, size, fonts, fontSize },
-  } = useTheme();
+  const { colors, size, fonts, fontSize } = useTheme();
   return (
     <Navigator
       initialRouteName="Home"

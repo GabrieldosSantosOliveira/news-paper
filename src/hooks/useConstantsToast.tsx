@@ -7,9 +7,7 @@ import { useTheme } from './useTheme';
 
 export const useConstantsToast = (type: ToastPropsType = 'default') => {
   const insets = useSafeAreaInsets();
-  const {
-    theme: { size, colors },
-  } = useTheme();
+  const { size, colors } = useTheme();
   const POSITION_ANIMATED_TOP_NOT_VISIBLE = (size['20'] + 500) * -1;
   const POSITION_ANIMATED_BOTTOM_NOT_VISIBLE = (size['20'] + 500) * -1;
 

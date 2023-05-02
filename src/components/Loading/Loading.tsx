@@ -1,9 +1,7 @@
 import { useTheme } from '@/hooks/useTheme';
 import { View, ActivityIndicator } from 'react-native';
 export const Loading = () => {
-  const {
-    theme: { colors },
-  } = useTheme();
+  const { colors } = useTheme();
   return (
     <View
       style={{
