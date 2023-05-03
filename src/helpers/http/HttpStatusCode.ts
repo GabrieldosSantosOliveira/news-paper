@@ -5,4 +5,5 @@ export const HttpStatusCode = {
   BAD_REQUEST: 400,
   NOT_FOUND: 404,
   UNAUTHORIZED_ERROR: 401,
+  CONFLICT: 409,
 };

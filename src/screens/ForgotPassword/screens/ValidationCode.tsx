@@ -38,6 +38,7 @@ export const ValidationCode = () => {
   const handleSaveCodeVerification = (codes: IValidationCodeForm) => {
     try {
       setIsLoading(true);
+      toast.clear();
       const code = Object.keys(codes).reduce((accumulator, currentValue) => {
         return accumulator + codes[currentValue as keyof IValidationCodeForm];
       }, '');

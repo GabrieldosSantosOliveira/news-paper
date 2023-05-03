@@ -2,50 +2,50 @@ import { Button } from '@/components/Button/Button';
 import { IconPasswordChangeVisibility } from '@/components/IconPasswordChangeVisibility';
 import { ControlledInput } from '@/components/Input/ControlledInput';
 import { Root } from '@/components/Input/Root';
-import { Text } from '@/components/Text';
 import { UnexpectedError } from '@/errors/UnexpectedError';
-import { useHttpService } from '@/hooks/useHttpService';
-import { useSelectorForgotPassword } from '@/hooks/useSelectorForgotPassword';
+import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
-import { ServiceResetPassword } from '@/services/ServiceResetPassword';
+import { ISingInState } from '@/redux/SingIn/singInSlice';
+import { RootState } from '@/redux/SingIn/store';
 import { Icons } from '@/styles/Icons';
-import { schemaResetPassword } from '@/validations/ForgotPassword/schemaResetPassword';
+import { schemaEmailAndPassword } from '@/validations/SingIn/schemaEmailAndPassword';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { useForm, SubmitErrorHandler } from 'react-hook-form';
 import { View } from 'react-native';
-export type IResetPasswordForm = {
-  passwordReset: string;
-};
-export const ResetPassword = () => {
-  const { control, handleSubmit } = useForm<IResetPasswordForm>({
-    resolver: yupResolver(schemaResetPassword),
-  });
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+import { useSelector } from 'react-redux';
+export interface IEmailAndPasswordForm {
+  email: string;
+  password: string;
+}
+export const EmailAndPassword = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { control, handleSubmit } = useForm<IEmailAndPasswordForm>({
+    resolver: yupResolver(schemaEmailAndPassword),
+  });
   const { colors } = useTheme();
-
-  const { code, email } = useSelectorForgotPassword();
-  const { httpService } = useHttpService();
-
-  const { navigate } = useNavigation();
-
   const toast = useToast();
-
-  const serviceResetPassword = new ServiceResetPassword(httpService);
-
-  const handleResetPassword = async ({ passwordReset }: IResetPasswordForm) => {
+  const { singInWithEmailAndPassword } = useAuth();
+  const { firstName, lastName } = useSelector<RootState, ISingInState>(
+    (state) => state.singIn,
+  );
+  const { navigate } = useNavigation();
+  const handleSingIn = async ({ email, password }: IEmailAndPasswordForm) => {
     try {
       setIsLoading(true);
       toast.clear();
-      if (!code || !email) {
+      if (!firstName || !lastName) {
         throw new UnexpectedError();
       }
-      await serviceResetPassword.resetPassword({ code, email, passwordReset });
+      await singInWithEmailAndPassword({
+        email,
+        firstName,
+        lastName,
+        password,
+      });
       navigate('Tab', {
         screen: 'Home',
       });
@@ -53,20 +53,28 @@ export const ResetPassword = () => {
       if (error instanceof Error) {
         toast.show({
           message: error.message,
-          type: 'error',
           position: 'top',
+          type: 'error',
         });
       }
     } finally {
       setIsLoading(false);
     }
   };
-  const handleSendMessageOfError: SubmitErrorHandler<IResetPasswordForm> = ({
-    passwordReset,
+  const handleSendMessageOfError: SubmitErrorHandler<IEmailAndPasswordForm> = ({
+    email,
+    password,
   }) => {
-    if (passwordReset?.message) {
+    if (email?.message) {
       toast.show({
-        message: passwordReset?.message,
+        message: email?.message,
+        position: 'top',
+        type: 'error',
+      });
+    }
+    if (password?.message) {
+      toast.show({
+        message: password?.message,
         position: 'top',
         type: 'error',
       });
@@ -76,30 +84,31 @@ export const ResetPassword = () => {
     <View
       style={{
         flex: 1,
+        paddingVertical: 20,
         paddingHorizontal: 10,
         justifyContent: 'space-between',
-        paddingVertical: 20,
       }}
     >
       <View style={{ gap: 20, justifyContent: 'flex-end' }}>
-        <Text font="Lexend.600" style={{ textAlign: 'center' }}>
-          Atualizar Senha
-        </Text>
-        <Root
-          _focus={{
-            borderWidth: 2,
-            borderColor: colors.input.primary.borderOnFocus,
-          }}
-        >
-          <Icons.lock color={colors.text.primary} size={24} />
+        <Root>
+          <Icons.envelope color={colors.input.primary.icon} />
           <ControlledInput
-            placeholder="Nova senha"
-            name="passwordReset"
+            autoComplete="email"
+            placeholder="Email"
+            name="email"
+            control={control}
+          />
+        </Root>
+        <Root>
+          <Icons.lock color={colors.input.primary.icon} />
+          <ControlledInput
+            placeholder="Senha"
             autoComplete="password-new"
+            name="password"
             secureTextEntry={!showPassword}
             control={control}
             onSubmitEditing={handleSubmit(
-              handleResetPassword,
+              handleSingIn,
               handleSendMessageOfError,
             )}
           />
@@ -110,9 +119,9 @@ export const ResetPassword = () => {
         </Root>
       </View>
       <Button
-        title="Confirmar"
+        title="Cadastrar"
         isLoading={isLoading}
-        onPress={handleSubmit(handleResetPassword, handleSendMessageOfError)}
+        onPress={handleSubmit(handleSingIn, handleSendMessageOfError)}
       />
     </View>
   );

@@ -9,6 +9,8 @@ export function ControlledInput<FormType extends FieldValues>({
   name,
   rules,
   shouldUnregister,
+  onBlur,
+  onChangeText,
   ...props
 }: ControlledInputProps<FormType>) {
   return (
@@ -18,11 +20,17 @@ export function ControlledInput<FormType extends FieldValues>({
       defaultValue={defaultValue}
       rules={rules}
       shouldUnregister={shouldUnregister}
-      render={({ field: { onBlur, onChange, value } }) => (
+      render={({ field }) => (
         <Input
-          onBlur={onBlur}
-          onChangeText={onChange}
-          value={value}
+          onBlur={(e) => {
+            field.onBlur();
+            onBlur ? onBlur(e) : null;
+          }}
+          onChangeText={(text) => {
+            field.onChange(text);
+            onChangeText ? onChangeText(text) : null;
+          }}
+          value={field.value}
           {...props}
         />
       )}

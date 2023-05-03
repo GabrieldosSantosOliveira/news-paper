@@ -53,7 +53,7 @@ const FooterBase = () => {
         >
           Oops não possuo cadastro?
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate('SingIn')}>
           <Text
             style={{
               fontFamily: fonts.Roboto[500],

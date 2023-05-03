@@ -9,6 +9,7 @@ export declare global {
       SingUp: undefined;
       ForgotPassword: undefined;
       Help: undefined;
+      SingIn: undefined;
       Tab: NavigatorScreenParams<BottomTabParamList>;
     }
   }

@@ -48,6 +48,7 @@ export const EmailForRecovery = () => {
   const handleSendCodeForEmail = async ({ email }: IEmailForRecoveryForm) => {
     try {
       setIsLoading(true);
+      toast.clear();
       await serviceForgotPassword.sendCodeForEmail(email);
       dispatch(setEmail({ email }));
     } catch (error) {
