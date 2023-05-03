@@ -1,5 +1,10 @@
 import { useStorage } from '@/hooks/useStorage';
-import { ThemeDark, ThemeLight } from '@/styles/Theme';
+import { DarkColors } from '@/styles/DarkColors';
+import { LightColors } from '@/styles/LightColors';
+import { ThemeLight } from '@/styles/Theme';
+import { FontFamily, ThemeFonts } from '@/styles/ThemeFonts';
+import { textFontSizes, ThemeFontSize } from '@/styles/ThemeFontSize';
+import { ThemeSize } from '@/styles/ThemeSize';
 import {
   createContext,
   FC,
@@ -17,8 +22,10 @@ export interface IThemeContext {
   fontSize: typeof ThemeLight.fontSize;
   fonts: typeof ThemeLight.fonts;
   size: typeof ThemeLight.size;
+  fontFamily: typeof FontFamily;
   currentTheme: IThemeCurrentTheme;
   colorMode: IThemeColorMode;
+  textFontSizes: typeof textFontSizes;
   changeThemeToDark: () => Promise<void>;
   changeThemeToLight: () => Promise<void>;
   changeThemeToAutomatic: () => Promise<void>;
@@ -50,7 +57,7 @@ export const ThemeProvider: FC<IThemeProvider> = ({ children }) => {
     setCurrentTheme('automatic');
     setColorMode(colorScheme || 'dark');
   };
-  const Theme = colorMode === 'dark' ? ThemeDark : ThemeLight;
+  const Theme = colorMode === 'dark' ? DarkColors : LightColors;
 
   const recoverApplicationTheme = useCallback(async () => {
     const theme = await storage.get<IThemeCurrentTheme>('@theme');
@@ -77,8 +84,13 @@ export const ThemeProvider: FC<IThemeProvider> = ({ children }) => {
   return (
     <ThemeContext.Provider
       value={{
+        fontFamily: FontFamily,
+        textFontSizes,
         currentTheme,
-        ...Theme,
+        fonts: ThemeFonts,
+        fontSize: ThemeFontSize,
+        size: ThemeSize,
+        colors: Theme,
         changeThemeToAutomatic,
         changeThemeToLight,
         changeThemeToDark,

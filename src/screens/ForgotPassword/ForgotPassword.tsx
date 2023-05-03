@@ -10,7 +10,7 @@ import { ResetPassword } from './screens/ResetPassword';
 import { ValidationCode } from './screens/ValidationCode';
 
 const ForgotPasswordBase = () => {
-  const { screen, progress } = useSelectorForgotPassword();
+  const { screen } = useSelectorForgotPassword();
   const screens = {
     EmailForRecovery: EmailForRecovery,
     ResetPassword: ResetPassword,
@@ -20,7 +20,7 @@ const ForgotPasswordBase = () => {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
-        <Header progress={progress} />
+        <Header />
         <Screen />
       </SafeAreaView>
     </KeyboardAvoidingView>

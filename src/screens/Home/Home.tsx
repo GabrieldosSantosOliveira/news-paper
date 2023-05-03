@@ -4,7 +4,6 @@ import { Notice } from '@/components/Notice/Notice';
 import { SafeAreaView } from '@/components/SafeAreaView';
 import { useServiceNotice } from '@/hooks/useServiceNotice';
 import { useTheme } from '@/hooks/useTheme';
-import { useToast } from '@/hooks/useToast';
 import { NoticeDto } from '@/models/NoticeDto';
 import { removeDuplicatedNotices } from '@/utils/notice/removeDuplicatedNotices';
 import { useState, useEffect, useCallback } from 'react';
@@ -26,7 +25,7 @@ export const Home = () => {
 
   const { serviceNotice } = useServiceNotice();
   const { size } = useTheme();
-  const toast = useToast();
+
   async function fetchNoticies() {
     try {
       if (!hasMoreData) return;
@@ -61,13 +60,9 @@ export const Home = () => {
       if (!data.info.next) {
         setHasMoreData(false);
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.show({
-          message: error.message,
-          position: 'top',
-        });
-      }
+    } catch {
+      setHasMoreData(false);
+      setNotices([]);
     } finally {
       setIsRefreshing(false);
       setIsLoading(false);

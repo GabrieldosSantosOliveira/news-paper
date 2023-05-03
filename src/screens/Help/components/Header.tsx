@@ -1,8 +1,9 @@
 import { useTheme } from '@/hooks/useTheme';
 import { Icons } from '@/styles/Icons';
 import { useNavigation } from '@react-navigation/native';
+import { memo } from 'react';
 import { View, TouchableOpacity } from 'react-native';
-export const Header = () => {
+export const HeaderBase = () => {
   const { size, colors } = useTheme();
   const { goBack } = useNavigation();
 
@@ -14,3 +15,4 @@ export const Header = () => {
     </View>
   );
 };
+export const Header = memo(HeaderBase);

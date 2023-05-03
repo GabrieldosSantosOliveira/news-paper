@@ -8,23 +8,43 @@ import { useToast } from '@/hooks/useToast';
 import { setEmail } from '@/redux/ForgotPassword/forgotPasswordSlice';
 import { ServiceForgotPassword } from '@/services/ServiceForgotPassword';
 import { Icons } from '@/styles/Icons';
+import { schemaEmailForRecovery } from '@/validations/ForgotPassword/schemaEmailForRecovery';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useId, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitErrorHandler } from 'react-hook-form';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 export interface IEmailForRecoveryForm {
   email: string;
 }
 export const EmailForRecovery = () => {
-  const { control, handleSubmit } = useForm<IEmailForRecoveryForm>();
+  const { control, handleSubmit } = useForm<IEmailForRecoveryForm>({
+    resolver: yupResolver(schemaEmailForRecovery),
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const dispatch = useDispatch();
-  const { colors } = useTheme();
-  const toast = useToast();
+
   const { httpService } = useHttpService();
+  const { colors } = useTheme();
+
+  const dispatch = useDispatch();
+  const toast = useToast();
+
   const serviceForgotPassword = new ServiceForgotPassword(httpService);
+
   const email = useId();
   const emailID = `email-${email}`;
+  const handleSendMessageOfError: SubmitErrorHandler<IEmailForRecoveryForm> = ({
+    email,
+  }) => {
+    if (email?.message) {
+      toast.show({
+        message: email?.message,
+        position: 'top',
+        type: 'error',
+      });
+    }
+  };
   const handleSendCodeForEmail = async ({ email }: IEmailForRecoveryForm) => {
     try {
       setIsLoading(true);
@@ -70,15 +90,20 @@ export const EmailForRecovery = () => {
             aria-labelledby={emailID}
             name="email"
             control={control}
+            autoComplete="email"
             placeholder="Email"
             autoFocus
+            onSubmitEditing={handleSubmit(
+              handleSendCodeForEmail,
+              handleSendMessageOfError,
+            )}
           />
         </Root>
       </View>
       <Button
         title="Continuar"
         isLoading={isLoading}
-        onPress={handleSubmit(handleSendCodeForEmail)}
+        onPress={handleSubmit(handleSendCodeForEmail, handleSendMessageOfError)}
       />
     </View>
   );

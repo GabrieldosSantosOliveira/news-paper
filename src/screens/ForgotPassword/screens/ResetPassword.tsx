@@ -1,4 +1,5 @@
 import { Button } from '@/components/Button/Button';
+import { IconPasswordChangeVisibility } from '@/components/IconPasswordChangeVisibility';
 import { ControlledInput } from '@/components/Input/ControlledInput';
 import { Root } from '@/components/Input/Root';
 import { Text } from '@/components/Text';
@@ -9,25 +10,34 @@ import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
 import { ServiceResetPassword } from '@/services/ServiceResetPassword';
 import { Icons } from '@/styles/Icons';
+import { schemaResetPassword } from '@/validations/ForgotPassword/schemaResetPassword';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitErrorHandler } from 'react-hook-form';
 import { View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 export type IResetPasswordForm = {
   passwordReset: string;
 };
 export const ResetPassword = () => {
-  const { control, handleSubmit } = useForm<IResetPasswordForm>();
-  const { colors } = useTheme();
+  const { control, handleSubmit } = useForm<IResetPasswordForm>({
+    resolver: yupResolver(schemaResetPassword),
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { httpService } = useHttpService();
-  const serviceResetPassword = new ServiceResetPassword(httpService);
+  const { colors } = useTheme();
+
   const { code, email } = useSelectorForgotPassword();
-  const toast = useToast();
+  const { httpService } = useHttpService();
+
   const { navigate } = useNavigation();
+
+  const toast = useToast();
+
+  const serviceResetPassword = new ServiceResetPassword(httpService);
+
   const handleResetPassword = async ({ passwordReset }: IResetPasswordForm) => {
     try {
       setIsLoading(true);
@@ -50,6 +60,17 @@ export const ResetPassword = () => {
       setIsLoading(false);
     }
   };
+  const handleSendMessageOfError: SubmitErrorHandler<IResetPasswordForm> = ({
+    passwordReset,
+  }) => {
+    if (passwordReset?.message) {
+      toast.show({
+        message: passwordReset?.message,
+        position: 'top',
+        type: 'error',
+      });
+    }
+  };
   return (
     <View
       style={{
@@ -59,7 +80,7 @@ export const ResetPassword = () => {
         paddingVertical: 20,
       }}
     >
-      <View style={{ gap: 20 }}>
+      <View style={{ gap: 20, justifyContent: 'flex-end' }}>
         <Text font="Lexend.600" style={{ textAlign: 'center' }}>
           Atualizar Senha
         </Text>
@@ -76,20 +97,21 @@ export const ResetPassword = () => {
             autoComplete="password-new"
             secureTextEntry={!showPassword}
             control={control}
-          />
-          <TouchableOpacity onPress={() => setShowPassword((prev) => !prev)}>
-            {showPassword ? (
-              <Icons.eye color={colors.input.primary.icon} size={24} />
-            ) : (
-              <Icons.eyeOff color={colors.input.primary.icon} size={24} />
+            onSubmitEditing={handleSubmit(
+              handleResetPassword,
+              handleSendMessageOfError,
             )}
-          </TouchableOpacity>
+          />
+          <IconPasswordChangeVisibility
+            changeVisibility={() => setShowPassword((prev) => !prev)}
+            visibility={showPassword}
+          />
         </Root>
       </View>
       <Button
         title="Confirmar"
         isLoading={isLoading}
-        onPress={handleSubmit(handleResetPassword)}
+        onPress={handleSubmit(handleResetPassword, handleSendMessageOfError)}
       />
     </View>
   );

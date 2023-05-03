@@ -5,16 +5,14 @@ import { useTheme } from '@/hooks/useTheme';
 import { goBackScreen } from '@/redux/ForgotPassword/forgotPasswordSlice';
 import { Icons } from '@/styles/Icons';
 import { useNavigation } from '@react-navigation/native';
-import { FC } from 'react';
+import { memo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-export interface HeaderProps {
-  progress: number;
-}
-export const Header: FC<HeaderProps> = ({ progress }) => {
+
+const HeaderBase = () => {
   const { size, colors } = useTheme();
   const { navigate, goBack } = useNavigation();
-  const { screen } = useSelectorForgotPassword();
+  const { screen, progress } = useSelectorForgotPassword();
   const dispatch = useDispatch();
   return (
     <View
@@ -49,3 +47,4 @@ export const Header: FC<HeaderProps> = ({ progress }) => {
     </View>
   );
 };
+export const Header = memo(HeaderBase);

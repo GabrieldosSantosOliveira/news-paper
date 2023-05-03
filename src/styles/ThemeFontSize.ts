@@ -200,3 +200,18 @@ export const ThemeFontSize = {
   199: ResponsiveFontScale(199),
   200: ResponsiveFontScale(200),
 };
+export const textFontSizes = {
+  xs: ThemeFontSize[12],
+  sm: ThemeFontSize[14],
+  md: ThemeFontSize[16],
+  lg: ThemeFontSize[18],
+  xl: ThemeFontSize[20],
+  '2xl': ThemeFontSize[24],
+  '3xl': ThemeFontSize[30],
+  '4xl': ThemeFontSize[36],
+  '5xl': ThemeFontSize[48],
+  '6xl': ThemeFontSize[60],
+  '7xl': ThemeFontSize[72],
+  '8xl': ThemeFontSize[96],
+  '9xl': ThemeFontSize[128],
+};

@@ -1,7 +1,10 @@
 import { Button } from '@/components/Button/Button';
+import { Heading } from '@/components/Heading';
+import { IconPasswordChangeVisibility } from '@/components/IconPasswordChangeVisibility';
 import { ControlledInput } from '@/components/Input/ControlledInput';
 import { Root } from '@/components/Input/Root';
 import { SafeAreaView } from '@/components/SafeAreaView';
+import { Text } from '@/components/Text';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
 import { useToast } from '@/hooks/useToast';
@@ -11,16 +14,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { SubmitErrorHandler, useForm } from 'react-hook-form';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
-import { Heading } from './components/Heading';
 export interface ISingUpForm {
   email: string;
   password: string;
@@ -37,7 +34,7 @@ export const SingUp = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { fontSize, fonts, colors } = useTheme();
+  const { colors } = useTheme();
   const toast = useToast();
 
   const handleSingUpWithEmail = async ({ email, password }: ISingUpForm) => {
@@ -100,8 +97,12 @@ export const SingUp = () => {
               justifyContent: 'flex-end',
             }}
           >
-            <Heading>Olá,</Heading>
-            <Heading fontWeight="400">Acesse sua conta</Heading>
+            <Heading size="2xl" font="Lexend.500">
+              Olá,
+            </Heading>
+            <Heading size="2xl" font="Lexend.400">
+              Acesse sua conta
+            </Heading>
             <Root
               _focus={{
                 borderWidth: 2,
@@ -135,30 +136,13 @@ export const SingUp = () => {
                   handleSendMessageOfError,
                 )}
               />
-              <TouchableOpacity
-                onPress={() => setShowPassword((prev) => !prev)}
-                accessibilityRole="button"
-                role="button"
-                accessibilityState={{ selected: showPassword }}
-                accessibilityValue={{
-                  text: showPassword ? 'Ocultar senha' : 'Exibir senha',
-                }}
-              >
-                {showPassword ? (
-                  <Icons.eye color={colors.text.primary} />
-                ) : (
-                  <Icons.eyeOff color={colors.text.primary} />
-                )}
-              </TouchableOpacity>
+              <IconPasswordChangeVisibility
+                changeVisibility={() => setShowPassword((prev) => !prev)}
+                visibility={showPassword}
+              />
             </Root>
             <TouchableOpacity onPress={() => navigate('ForgotPassword')}>
-              <Text
-                style={{
-                  color: colors.text.primary,
-                  fontFamily: fonts.Roboto[500],
-                  fontSize: fontSize[15],
-                }}
-              >
+              <Text color="primary" font="Roboto.500" size="sm">
                 Esqueceu sua senha ?
               </Text>
             </TouchableOpacity>

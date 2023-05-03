@@ -20,7 +20,6 @@ const ListEmptyNoticeBase = () => {
           textAlign: 'center',
           color: colors.text.primary,
         }}
-        selectable={true}
       >
         Algo de errado ocorreu, tente novamente mais tarde
       </Text>

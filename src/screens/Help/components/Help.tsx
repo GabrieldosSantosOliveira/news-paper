@@ -1,13 +1,13 @@
 import { Text } from '@/components/Text';
 import { useTheme } from '@/hooks/useTheme';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, memo } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 export interface HelpProps {
   icon: ReactNode;
   title: string;
   description: string;
 }
-export const Help: FC<HelpProps> = ({ icon, description, title }) => {
+export const HelpBase: FC<HelpProps> = ({ icon, description, title }) => {
   const { size, colors } = useTheme();
   return (
     <TouchableOpacity>
@@ -38,3 +38,4 @@ export const Help: FC<HelpProps> = ({ icon, description, title }) => {
     </TouchableOpacity>
   );
 };
+export const Help = memo(HelpBase);
