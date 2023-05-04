@@ -38,6 +38,7 @@ export interface IAuthContext {
     data: SingInWithEmailAndPasswordParams,
   ) => Promise<void>;
   isAuthenticated: boolean;
+  singOut: () => Promise<void>;
 }
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export interface IAuthProvider {
@@ -144,6 +145,11 @@ export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
       await storage.multiRemove(['@refreshToken', '@accessToken']);
     }
   }, []);
+  const singOut = async () => {
+    await GoogleSignin.signOut();
+    await storage.multiRemove(['@refreshToken', '@accessToken']);
+    setAuthor(null);
+  };
   useEffect(() => {
     recoverApplicationAuthor();
   }, []);
@@ -155,6 +161,7 @@ export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
         singUpWithEmailAndPassword,
         singInWithEmailAndPassword,
         isAuthenticated: Boolean(author),
+        singOut,
       }}
     >
       {children}

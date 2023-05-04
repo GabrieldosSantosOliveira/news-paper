@@ -1,4 +1,5 @@
 import { useTheme } from '@/hooks/useTheme';
+import { Category } from '@/screens/Category/Category';
 import { Home } from '@/screens/Home/Home';
 import { Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -32,6 +33,16 @@ export const Tab = () => {
         options={{
           tabBarIcon: ({ size, color }) => (
             <Feather name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Screen
+        name="Category"
+        component={Category}
+        options={{
+          tabBarLabel: 'Categoria',
+          tabBarIcon: ({ size, color }) => (
+            <Feather name="list" size={size} color={color} />
           ),
         }}
       />

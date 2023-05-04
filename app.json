@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#09090A"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "userInterfaceStyle": "automatic",
     "android": {
       "adaptiveIcon": {

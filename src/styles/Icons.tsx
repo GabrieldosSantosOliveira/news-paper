@@ -2,6 +2,7 @@ import {
   AntDesign,
   Feather,
   FontAwesome,
+  Fontisto,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
@@ -56,5 +57,20 @@ export const Icons = {
   ),
   moon: ({ color, size = 24 }: IconProps) => (
     <Ionicons name="moon" size={size} color={color} />
+  ),
+  soccer: ({ color, size = 24 }: IconProps) => (
+    <MaterialCommunityIcons name="soccer" size={size} color={color} />
+  ),
+  pets: ({ color, size = 24 }: IconProps) => (
+    <MaterialIcons name="pets" size={size} color={color} />
+  ),
+  atom: ({ color, size = 24 }: IconProps) => (
+    <MaterialCommunityIcons name="atom" size={size} color={color} />
+  ),
+  pieChart: ({ color, size = 24 }: IconProps) => (
+    <AntDesign name="piechart" size={size} color={color} />
+  ),
+  worldO: ({ color, size = 24 }: IconProps) => (
+    <Fontisto name="world-o" size={size} color={color} />
   ),
 };

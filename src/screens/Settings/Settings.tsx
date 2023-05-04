@@ -8,6 +8,7 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
 import { useRef } from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
@@ -16,8 +17,9 @@ import { Header } from './components/Header';
 import { Option } from './components/Option';
 import { ThemeModal } from './modals/ThemeModal';
 const SettingsBase = () => {
-  const { author } = useAuth();
+  const { author, singOut } = useAuth();
   const { size, colors } = useTheme();
+  const { navigate } = useNavigation();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   if (!author) return <Loading />;
   return (
@@ -57,14 +59,12 @@ const SettingsBase = () => {
               bottomSheetModalRef.current?.present();
             }}
           />
-          <Option
-            icon={<Icons.translate color={colors.text.primary} />}
-            text="Idioma"
+          <TouchableOpacity
             onPress={() => {
-              bottomSheetModalRef.current?.present();
+              singOut();
+              navigate('Tab', { screen: 'Home' });
             }}
-          />
-          <TouchableOpacity>
+          >
             <Text
               font="Poppins.400"
               style={{ textDecorationLine: 'underline', marginTop: 25 }}

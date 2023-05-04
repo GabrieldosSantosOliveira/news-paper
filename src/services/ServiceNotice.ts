@@ -1,4 +1,6 @@
 import { env } from '@/config/env';
+import { CategoryNotFoundError } from '@/errors/CategoryNotFoundError';
+import { NoticeNotFoundError } from '@/errors/NoticeNotFoundError copy';
 import { UnexpectedError } from '@/errors/UnexpectedError';
 import { makeUrl } from '@/factories/makeUrl';
 import { HttpStatusCode } from '@/helpers/http/HttpStatusCode';
@@ -12,22 +14,49 @@ export class ServiceNotice {
       await this.httpService.get<NoticePaginationDto>(
         makeUrl(env.BASE_URL, `/api/notice?page=${page}`),
       );
-    if (statusCode === HttpStatusCode.OK) {
-      return { data, statusCode };
+    switch (statusCode) {
+      case HttpStatusCode.OK:
+        return { data, statusCode };
+        break;
+      default:
+        throw new UnexpectedError();
+        break;
     }
-    throw new UnexpectedError();
   }
   async getAllNoticeByCategory(page: number, categoryTitle: string) {
-    return await this.httpService.get<NoticePaginationDto>(
-      makeUrl(
-        env.BASE_URL,
-        `/api/notice/category/${categoryTitle}?page=${page}`,
-      ),
-    );
+    const { data, statusCode } =
+      await this.httpService.get<NoticePaginationDto>(
+        makeUrl(
+          env.BASE_URL,
+          `/api/notice/category/${categoryTitle}?page=${page}`,
+        ),
+      );
+    switch (statusCode) {
+      case HttpStatusCode.OK:
+        return { data, statusCode };
+        break;
+      case HttpStatusCode.NOT_FOUND:
+        throw new CategoryNotFoundError();
+        break;
+      default:
+        throw new UnexpectedError();
+        break;
+    }
   }
   async getOneNotice(noticeId: string) {
-    return await this.httpService.get<NoticeDto>(
+    const { data, statusCode } = await this.httpService.get<NoticeDto>(
       makeUrl(env.BASE_URL, `/api/notice/${noticeId}`),
     );
+    switch (statusCode) {
+      case HttpStatusCode.OK:
+        return { data, statusCode };
+        break;
+      case HttpStatusCode.NOT_FOUND:
+        throw new NoticeNotFoundError();
+        break;
+      default:
+        throw new UnexpectedError();
+        break;
+    }
   }
 }
