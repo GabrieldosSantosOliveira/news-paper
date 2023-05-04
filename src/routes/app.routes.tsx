@@ -1,3 +1,4 @@
+import { Details } from '@/screens/Details/Details';
 import { ForgotPassword } from '@/screens/ForgotPassword/ForgotPassword';
 import { Help } from '@/screens/Help/Help';
 import { SingIn } from '@/screens/SingIn/SingIn';
@@ -16,6 +17,8 @@ export const AppRoutes = () => {
       <Screen name="Tab" component={Tab} />
       <Screen name="ForgotPassword" component={ForgotPassword} />
       <Screen name="SingIn" component={SingIn} />
+      <Screen name="Details" component={Details} />
+
       <Screen
         name="Help"
         component={Help}

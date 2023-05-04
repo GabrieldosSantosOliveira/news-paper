@@ -1,5 +1,6 @@
 import { useTheme } from '@/hooks/useTheme';
 import { NoticeDto } from '@/models/NoticeDto';
+import { useNavigation } from '@react-navigation/native';
 import { FC, memo, useState } from 'react';
 import { Text, Image, View, TouchableOpacity } from 'react-native';
 
@@ -8,12 +9,13 @@ export interface NoticeProps {
   notice: NoticeDto;
 }
 const NoticeBase: FC<NoticeProps> = ({
-  notice: { image, title, description },
+  notice: { image, title, description, id },
 }) => {
   const [isImageLoad, setIsImageLoad] = useState<boolean>(false);
   const { colors, fontSize, fonts, size } = useTheme();
+  const { navigate } = useNavigation();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigate('Details', { id })}>
       <View style={{ width: 'auto', gap: 10 }}>
         <View
           style={{

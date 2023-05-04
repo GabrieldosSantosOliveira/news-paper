@@ -25,7 +25,7 @@ export class ServiceNotice {
       ),
     );
   }
-  async getNotice(noticeId: string) {
+  async getOneNotice(noticeId: string) {
     return await this.httpService.get<NoticeDto>(
       makeUrl(env.BASE_URL, `/api/notice/${noticeId}`),
     );
