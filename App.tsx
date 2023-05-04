@@ -16,7 +16,10 @@ import {
   Lexend_600SemiBold,
   Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
-import { Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import {
+  Poppins_600SemiBold,
+  Poppins_400Regular,
+} from '@expo-google-fonts/poppins';
 import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default function App() {
@@ -28,6 +31,7 @@ export default function App() {
     Roboto_400Regular,
     Roboto_500Medium,
     Poppins_600SemiBold,
+    Poppins_400Regular,
   });
   return (
     <HttpServiceProvider>

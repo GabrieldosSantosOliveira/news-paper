@@ -10,6 +10,7 @@ export const ThemeFonts = {
     500: 'Roboto_500Medium',
   },
   Poppins: {
+    400: 'Poppins_400Regular',
     600: 'Poppins_600SemiBold',
   },
 };
@@ -20,5 +21,6 @@ export const FontFamily = {
   'Lexend.700': 'Lexend_700Bold',
   'Roboto.400': 'Roboto_400Regular',
   'Roboto.500': 'Roboto_500Medium',
+  'Poppins.400': 'Poppins_400Regular',
   'Poppins.600': 'Poppins_600SemiBold',
 };

@@ -1,4 +1,11 @@
-import { AntDesign, Feather, FontAwesome } from '@expo/vector-icons';
+import {
+  AntDesign,
+  Feather,
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from '@expo/vector-icons';
 export interface IconProps {
   size?: number;
   color: string;
@@ -30,5 +37,24 @@ export const Icons = {
   ),
   infoCircleo: ({ color, size = 24 }: IconProps) => (
     <AntDesign name="infocirlceo" size={size} color={color} />
+  ),
+  moonLastQuarter: ({ color, size = 24 }: IconProps) => (
+    <MaterialCommunityIcons
+      name="moon-last-quarter"
+      size={size}
+      color={color}
+    />
+  ),
+  translate: ({ color, size = 24 }: IconProps) => (
+    <MaterialIcons name="translate" size={size} color={color} />
+  ),
+  userCircleO: ({ color, size = 24 }: IconProps) => (
+    <FontAwesome name="user-circle-o" size={size} color={color} />
+  ),
+  sun: ({ color, size = 24 }: IconProps) => (
+    <Feather name="sun" size={size} color={color} />
+  ),
+  moon: ({ color, size = 24 }: IconProps) => (
+    <Ionicons name="moon" size={size} color={color} />
   ),
 };

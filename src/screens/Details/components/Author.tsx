@@ -14,7 +14,7 @@ export const Author: FC<AuthorProps> = ({ author, createdAt }) => {
     ? () => (
         <Image
           source={{ uri: author.picture }}
-          style={{ height: size[20], width: size[20] }}
+          style={{ height: size[20], width: size[20], borderRadius: 999 }}
         />
       )
     : () => <></>;

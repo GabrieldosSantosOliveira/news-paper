@@ -1,28 +1,22 @@
 import { BoxEmpty } from '@/components/BoxEmpty';
 import { useAuth } from '@/hooks/useAuth';
 import { useTheme } from '@/hooks/useTheme';
-import { FontAwesome } from '@expo/vector-icons';
+import { Icons } from '@/styles/Icons';
 import { useNavigation } from '@react-navigation/native';
 import { memo } from 'react';
 import { Text, TouchableOpacity, View, Image } from 'react-native';
 const HeaderBase = () => {
   const { colors, fontSize, fonts, size } = useTheme();
   const { navigate } = useNavigation();
-  const { author } = useAuth();
+  const { author, isAuthenticated } = useAuth();
   const Icon = author?.picture
     ? () => (
         <Image
           source={{ uri: author?.picture }}
-          style={{ width: 26, height: 26, borderRadius: 100 }}
+          style={{ width: 24, height: 24, borderRadius: 100 }}
         />
       )
-    : () => (
-        <FontAwesome
-          name="user-circle-o"
-          size={26}
-          color={colors.text.primary}
-        />
-      );
+    : () => <Icons.userCircleO color={colors.text.primary} />;
   return (
     <View
       style={{
@@ -42,7 +36,11 @@ const HeaderBase = () => {
       >
         News Papper
       </Text>
-      <TouchableOpacity onPress={() => navigate('SingUp')}>
+      <TouchableOpacity
+        onPress={() => {
+          isAuthenticated ? navigate('Settings') : navigate('SingUp');
+        }}
+      >
         <Icon />
       </TouchableOpacity>
     </View>

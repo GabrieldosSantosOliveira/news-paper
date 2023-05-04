@@ -37,6 +37,7 @@ export interface IAuthContext {
   singInWithEmailAndPassword: (
     data: SingInWithEmailAndPasswordParams,
   ) => Promise<void>;
+  isAuthenticated: boolean;
 }
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export interface IAuthProvider {
@@ -136,6 +137,7 @@ export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
       const { data } = await serviceRefreshToken.handle({
         refreshToken,
       });
+      await storage.set('@accessToken', data.accessToken);
       const author = await serviceAuthor.get(data.accessToken);
       setAuthor(author.data);
     } catch {
@@ -152,6 +154,7 @@ export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
         author,
         singUpWithEmailAndPassword,
         singInWithEmailAndPassword,
+        isAuthenticated: Boolean(author),
       }}
     >
       {children}

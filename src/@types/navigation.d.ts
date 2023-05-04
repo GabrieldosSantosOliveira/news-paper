@@ -13,6 +13,7 @@ export declare global {
       ForgotPassword: undefined;
       Help: undefined;
       SingIn: undefined;
+      Settings: undefined;
       Details: DetailsParams;
       Tab: NavigatorScreenParams<BottomTabParamList>;
     }
