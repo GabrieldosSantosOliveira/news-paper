@@ -5,6 +5,7 @@ import { NoticesByCategory } from '@/screens/NoticesByCategory/NoticesByCategory
 import { Settings } from '@/screens/Settings/Settings';
 import { SingIn } from '@/screens/SingIn/SingIn';
 import { SingUp } from '@/screens/SingUp/SingUp';
+import { Update } from '@/screens/Update/Update';
 import {
   createStackNavigator,
   TransitionPresets,
@@ -22,6 +23,8 @@ export const AppRoutes = () => {
       <Screen name="Details" component={Details} />
       <Screen name="Settings" component={Settings} />
       <Screen name="NoticesByCategory" component={NoticesByCategory} />
+      <Screen name="Update" component={Update} />
+
       <Screen
         name="Help"
         component={Help}

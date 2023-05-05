@@ -3,7 +3,6 @@ import { HttpServiceImpl } from '@/services/HttpServiceImpl';
 import { createContext, FC, ReactNode } from 'react';
 export interface IHttpServiceContext {
   httpService: HttpService;
-  authHttpService: HttpService;
 }
 export const HttpServiceContext = createContext<IHttpServiceContext>(
   {} as IHttpServiceContext,
@@ -13,12 +12,12 @@ export interface IHttpServiceProvider {
 }
 
 export const HttpServiceProvider: FC<IHttpServiceProvider> = ({ children }) => {
-  const httpServiceImpl = new HttpServiceImpl();
+  const httpService = new HttpServiceImpl();
+
   return (
     <HttpServiceContext.Provider
       value={{
-        authHttpService: httpServiceImpl,
-        httpService: httpServiceImpl,
+        httpService,
       }}
     >
       {children}

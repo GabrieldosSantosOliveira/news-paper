@@ -2,7 +2,12 @@ import { env } from '@/config/env';
 import { UnexpectedError } from '@/errors/UnexpectedError';
 import { useHttpService } from '@/hooks/useHttpService';
 import { useStorage } from '@/hooks/useStorage';
+import {
+  HttpService,
+  HttpServiceOptionsHeaders,
+} from '@/interfaces/HttpService';
 import { AuthorDto } from '@/models/AuthorDto';
+import { HttpServiceImpl } from '@/services/HttpServiceImpl';
 import { ServiceAuthor } from '@/services/ServiceAuthor';
 import { ServiceRefreshToken } from '@/services/ServiceRefreshToken';
 import { ServiceSingInWithEmailAndPassword } from '@/services/ServiceSingInWithEmailAndPassword';
@@ -28,6 +33,11 @@ export interface SingInWithEmailAndPasswordParams {
   lastName: string;
   firstName: string;
 }
+export interface UpdateAccountParams {
+  firstName: string;
+  lastName: string;
+  picture: string;
+}
 export interface IAuthContext {
   singUpWithGoogleProvider: () => Promise<void>;
   author: AuthorDto | null;
@@ -39,6 +49,9 @@ export interface IAuthContext {
   ) => Promise<void>;
   isAuthenticated: boolean;
   singOut: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
+  updateAccount: (data: UpdateAccountParams) => Promise<void>;
+  authHttpService: HttpService;
 }
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export interface IAuthProvider {
@@ -46,15 +59,40 @@ export interface IAuthProvider {
 }
 
 export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
+  const authHttpService = new HttpServiceImpl();
+  authHttpService.interceptors = {
+    response: {
+      onRejected: async (error) => {
+        if (error.statusCode === 401) {
+          const { data } = await refreshToken();
+          const authHeaders: HttpServiceOptionsHeaders = {
+            ...error.headers,
+            authorization: `Bearer ${data.accessToken}`,
+          };
+          return await httpService.request({
+            method: error.method,
+            url: error.url,
+            body: error.data,
+            headers: authHeaders,
+          });
+        } else {
+          return { data: error.data, statusCode: error.statusCode };
+        }
+      },
+    },
+  };
+
   const [author, setAuthor] = useState<AuthorDto | null>(null);
+
   const { httpService } = useHttpService();
+
   const { storage } = useStorage();
   const serviceSingUpWithEmailAndPassword =
     new ServiceSingUpWithEmailAndPassword(httpService);
   const serviceSingUpWithGoogleProvider = new ServiceSingUpWithGoogleProvider(
-    httpService,
+    authHttpService,
   );
-  const serviceAuthor = new ServiceAuthor(httpService);
+  const serviceAuthor = new ServiceAuthor(authHttpService);
   const serviceRefreshToken = new ServiceRefreshToken(httpService);
 
   const serviceSingInWithEmailAndPassword =
@@ -150,9 +188,44 @@ export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
     await storage.multiRemove(['@refreshToken', '@accessToken']);
     setAuthor(null);
   };
+  const deleteAccount = async () => {
+    const accessToken = await storage.get<string>('@accessToken');
+    if (!accessToken) {
+      throw new UnexpectedError();
+    }
+    await serviceAuthor.delete(accessToken);
+    setAuthor(null);
+  };
   useEffect(() => {
     recoverApplicationAuthor();
   }, []);
+  const refreshToken = async () => {
+    const [refreshToken] = await storage.multiGet([
+      '@refreshToken',
+      '@accessToken',
+    ]);
+    return await serviceRefreshToken.handle({
+      refreshToken,
+    });
+  };
+  const updateAccount = async ({
+    firstName,
+    lastName,
+    picture,
+  }: UpdateAccountParams) => {
+    const accessToken = await storage.get<string>('@accessToken');
+    if (!accessToken || !author) {
+      throw new UnexpectedError();
+    }
+    await serviceAuthor.update({ firstName, lastName, picture, accessToken });
+    const authorUpdated: AuthorDto = {
+      ...author,
+      firstName,
+      lastName,
+      picture,
+    };
+    setAuthor(authorUpdated);
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -162,6 +235,9 @@ export const AuthProvider: FC<IAuthProvider> = ({ children }) => {
         singInWithEmailAndPassword,
         isAuthenticated: Boolean(author),
         singOut,
+        deleteAccount,
+        authHttpService,
+        updateAccount,
       }}
     >
       {children}

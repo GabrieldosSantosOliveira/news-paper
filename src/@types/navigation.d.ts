@@ -20,6 +20,7 @@ export declare global {
       SingIn: undefined;
       Settings: undefined;
       Details: DetailsParams;
+      Update: undefined;
       Tab: NavigatorScreenParams<BottomTabParamList>;
     }
   }

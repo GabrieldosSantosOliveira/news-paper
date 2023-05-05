@@ -17,7 +17,7 @@ import { Header } from './components/Header';
 import { Option } from './components/Option';
 import { ThemeModal } from './modals/ThemeModal';
 const SettingsBase = () => {
-  const { author, singOut } = useAuth();
+  const { author, singOut, deleteAccount } = useAuth();
   const { size, colors } = useTheme();
   const { navigate } = useNavigation();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -67,9 +67,28 @@ const SettingsBase = () => {
           >
             <Text
               font="Poppins.400"
+              size="sm"
               style={{ textDecorationLine: 'underline', marginTop: 25 }}
             >
               Sair da conta
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={async () => {
+              await deleteAccount();
+              navigate('Tab', { screen: 'Home' });
+            }}
+          >
+            <Text
+              font="Poppins.400"
+              size="sm"
+              style={{
+                textDecorationLine: 'underline',
+                marginTop: 25,
+                color: colors.text.error,
+              }}
+            >
+              Excluir a conta
             </Text>
           </TouchableOpacity>
         </View>

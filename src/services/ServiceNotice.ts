@@ -47,6 +47,7 @@ export class ServiceNotice {
     const { data, statusCode } = await this.httpService.get<NoticeDto>(
       makeUrl(env.BASE_URL, `/api/notice/${noticeId}`),
     );
+    console.log(data);
     switch (statusCode) {
       case HttpStatusCode.OK:
         return { data, statusCode };

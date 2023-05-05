@@ -13,6 +13,7 @@ export const LightColors = {
     help: '#4F46E5',
     attention: '#7C3AED',
     google: '#FFFFFF',
+    error: '#ef4444',
   },
   button: {
     google: '#4285F4',
